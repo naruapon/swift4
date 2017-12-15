@@ -1,0 +1,8 @@
+import UIKit
+
+let app = UIApplication.shared
+
+let window = app.keyWindow
+if let windowFrame = window?.frame {
+   print("Size: \(windowFrame.size.width) x \(windowFrame.size.height)")
+}

@@ -1,0 +1,25 @@
+import UIKit
+import CoreMotion
+
+class ViewController: UIViewController {
+   @IBOutlet weak var altitudeLabel: UILabel!
+   var altimeter: CMAltimeter!
+   var totalAltitude = 0.0
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      if CMAltimeter.isRelativeAltitudeAvailable() {
+         altimeter = CMAltimeter()
+         let queue = OperationQueue.main
+         altimeter.startRelativeAltitudeUpdates(to: queue, withHandler: { (data, error) in
+            if let values = data {
+               self.totalAltitude += values.relativeAltitude.doubleValue
+               self.altitudeLabel.text = String(self.totalAltitude)
+            }
+         })
+      } else {
+         print("The device can't measure altitude")
+      }
+   }
+}

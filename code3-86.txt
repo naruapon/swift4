@@ -1,0 +1,7 @@
+enum Number: String {
+   case one = "Number 1"
+   case two = "Number 2"
+   case three = "Number 3"
+}
+var mynumber = Number.one
+print("The value is \(mynumber.rawValue)") // "The value is Number 1"

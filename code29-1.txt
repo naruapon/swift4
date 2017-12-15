@@ -1,0 +1,26 @@
+import UIKit
+import CoreMotion
+
+class ViewController: UIViewController {
+   @IBOutlet weak var valueX: UILabel!
+   @IBOutlet weak var valueY: UILabel!
+   @IBOutlet weak var valueZ: UILabel!
+   var manager: CMMotionManager!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      manager = CMMotionManager()
+      if manager.isDeviceMotionAvailable {
+         manager.deviceMotionUpdateInterval = 1.0 / 60.0
+         let queue = OperationQueue.main
+         manager.startDeviceMotionUpdates(to: queue, withHandler: { (data, error) in
+            if let values = data {
+               self.valueX.text = String(values.gravity.x)
+               self.valueY.text = String(values.gravity.y)
+               self.valueZ.text = String(values.gravity.z)
+            }
+         })
+      }
+   }
+}

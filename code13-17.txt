@@ -1,0 +1,7 @@
+import UIKit
+
+class SecondViewController: UIViewController {
+   @IBAction func closeView(_ sender: UIButton) {
+      navigationController?.popViewController(animated: true)
+   }
+}

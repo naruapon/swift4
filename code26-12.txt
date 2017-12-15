@@ -1,0 +1,10 @@
+@IBAction func takePicture(_ sender: UIButton) {
+   let settings = AVCapturePhotoSettings()
+   stillImage.capturePhoto(with: settings, delegate: self)
+}
+func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+   let imageData = photo.fileDataRepresentation()
+   let scale = UIScreen.main.scale
+   picture = UIImage(data: imageData!, scale: scale)
+   performSegue(withIdentifier: "goBackSegue", sender: self)
+}

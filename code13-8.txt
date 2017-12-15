@@ -1,0 +1,12 @@
+import UIKit
+
+class NavigationViewController: UINavigationController {
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      hidesBarsOnSwipe = true
+        
+      let bar = navigationBar
+      bar.barStyle = UIBarStyle.default
+      bar.barTintColor = UIColor(red: 0.9, green: 0.9, blue: 1.0, alpha: 1)
+   }
+}

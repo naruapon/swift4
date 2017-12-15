@@ -1,0 +1,16 @@
+var sum = 0.0
+var myarray = [10.0, 20.0, 30.0, 40.0, 50.0]
+
+func first() {
+   let multi = 10.0
+   sum += myarray[1] * multi
+}
+func second() {
+   var myarray = [1.0, 2.0, 3.0, 4.0, 5.0]
+   let multi = 3.5
+   sum += myarray[2] * multi
+}
+first()
+second()
+
+print("Total: \(sum)")  // "Total: 210.5"

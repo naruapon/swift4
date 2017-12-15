@@ -1,0 +1,20 @@
+import UIKit
+
+class DrawingView: UIView {
+   var position: CGPoint!
+
+   override func draw(_ rect: CGRect) {
+      if let context = UIGraphicsGetCurrentContext() {
+         if position != nil {
+            let radius: CGFloat = 20
+            let frame = CGRect(x: position.x - radius, y: position.y - radius, width: radius * 2, height: radius * 2)
+            context.fillEllipse(in: frame)
+         }
+      }
+   }
+   @objc func addCircle(sender: UITapGestureRecognizer) {
+      let location = sender.location(in: self)
+      position = CGPoint(x: location.x, y: location.y)
+      self.setNeedsDisplay()
+   }
+}

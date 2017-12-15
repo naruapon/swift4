@@ -1,0 +1,17 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet var buttons: [UIButton]!
+    
+   @IBAction func sayHello(_ sender: UIButton) {
+      print("Hello!")
+   }
+   @IBAction func sayGoodbye(_ sender: UIButton) {
+      print("Goodbye!")
+   }
+   @IBAction func disableButtons(_ sender: UIButton) {
+      for button in buttons {
+         button.isEnabled = false
+      }
+   }
+}

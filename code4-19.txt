@@ -1,0 +1,9 @@
+import Foundation
+
+let roundup = NSDecimalNumberHandler(roundingMode: .plain, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+NSDecimalNumber.defaultBehavior = roundup
+
+var money = NSDecimalNumber(value: 35.5761)
+var quantity = NSDecimalNumber(value: 3.20)
+
+var total = money.multiplying(by: quantity)  // 113.84

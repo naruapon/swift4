@@ -1,0 +1,22 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var totalLabel: UILabel!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let operation = BlockOperation(block: {
+         var total: Double = 1
+         for f in 1..<100 {
+            total = log(total + Double(f))
+         }
+         let main = OperationQueue.main
+         main.addOperation({
+            self.totalLabel.text = "Total: \(total)"
+         })
+      })
+      let queue = OperationQueue()
+      queue.addOperation(operation)
+      print("Printed in the Main Queue")
+   }
+}

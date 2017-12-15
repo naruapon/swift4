@@ -1,0 +1,15 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var mytitle: UILabel!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      mytitle.text = "Description: My New Label"
+        
+      let labelSize = mytitle.intrinsicContentSize
+      print("New Width: \(labelSize.width)")
+      print("New Height: \(labelSize.height)")
+   }
+}

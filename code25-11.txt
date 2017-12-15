@@ -1,0 +1,31 @@
+import UIKit
+import AVFoundation
+
+class ViewController: UIViewController, AVAudioPlayerDelegate {
+   @IBOutlet weak var recordButton: UIButton!
+   @IBOutlet weak var playButton: UIButton!
+   var audioRecorder: AVAudioRecorder!
+   var audioPlayer: AVAudioPlayer!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      playButton.isEnabled = false
+      let manager = FileManager.default
+      let documents = manager.urls(for: .documentDirectory, in: .userDomainMask)
+      let docURL = documents.first!
+      let audioURL = docURL.appendingPathComponent("myaudio.caf")
+        
+      let audioSession = AVAudioSession.sharedInstance()
+      do {
+         try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+         let recordSettings: [String: Any] = [AVEncoderAudioQualityKey: AVAudioQuality.medium.rawValue, AVEncoderBitRateKey: 16, AVSampleRateKey: 44100.0, AVNumberOfChannelsKey: 2]
+         audioRecorder = try AVAudioRecorder(url: audioURL, settings: recordSettings)
+         if audioRecorder != nil {
+            audioRecorder.prepareToRecord()
+         }
+      } catch {
+         print("Error")
+      }
+   }
+}

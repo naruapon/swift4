@@ -1,0 +1,6 @@
+@IBAction func deleteItem(_ sender: UIButton) {
+   let title = AppData.items[selected]
+   AppData.details.removeValue(forKey: title)
+   AppData.items.remove(at: selected)
+   navigationController?.popViewController(animated: true)
+}

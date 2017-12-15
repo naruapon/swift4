@@ -1,0 +1,18 @@
+override func viewWillAppear(_ animated: Bool) {
+   super.viewWillAppear(animated)
+        
+   let store = CNContactStore()
+   store.requestAccess(for: .contacts, completionHandler: { (success, error) in
+      if success {
+         do {
+            let predicate = CNContact.predicateForContacts(matchingName: "John")
+            self.contactList = try store.unifiedContacts(matching: predicate, keysToFetch: [CNContactGivenNameKey as CNKeyDescriptor, CNContactFamilyNameKey as CNKeyDescriptor])
+         } catch {
+            print("Error")
+         }
+         OperationQueue.main.addOperation({
+            self.tableView.reloadData()
+         })
+      }
+   })
+}

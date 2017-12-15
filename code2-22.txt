@@ -1,0 +1,3 @@
+let exclamation = "!"
+var mytext = "My name is "
+mytext += "John" + exclamation  // "My name is John!"

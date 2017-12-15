@@ -1,0 +1,11 @@
+func first() -> Int {
+   var counter = 0
+
+   func second() -> Int {
+      counter += 1
+      return counter
+   }
+   return second()
+}
+let total = first()
+print("The count is \(total)")  // "The count is 1"

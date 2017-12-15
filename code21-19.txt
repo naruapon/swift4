@@ -1,0 +1,21 @@
+import UIKit
+
+class ViewController: UIViewController {
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      let manager = FileManager.default
+      let documents = manager.urls(for: .documentDirectory, in: .userDomainMask)
+let docURL = documents.first!
+
+      let fileURL = docURL.appendingPathComponent("quotes.dat")
+      let filePath = fileURL.path
+      if manager.fileExists(atPath: filePath) {
+         let result = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as! String
+         print(result)
+      } else {
+         let quote = "Fiction is the truth inside the lie"
+         NSKeyedArchiver.archiveRootObject(quote, toFile: filePath)
+      }
+   }
+}

@@ -1,0 +1,11 @@
+import Foundation
+
+var string = "The Suitcase is Black"
+var search = "black"
+
+var range = string.range(of: search, options: .caseInsensitive)
+if let rangeToReplace = range {
+   string.replaceSubrange(rangeToReplace, with: "Red")
+} else {
+   print("Not Found")
+}

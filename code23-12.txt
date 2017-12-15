@@ -1,0 +1,26 @@
+@IBAction func addDocument(_ sender: UIBarButtonItem) {
+   let alert = UIAlertController(title: "New File", message: nil, preferredStyle: .alert)
+   let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+   alert.addAction(cancel)
+   let action = UIAlertAction(title: "Create", style: .default, handler: { (action) in
+      if let fields = alert.textFields {
+         let file = fields[0].text
+         self.saveFile(name: file!)
+      }
+   })
+   alert.addAction(action)
+   alert.addTextField(configurationHandler: { (textField) in
+      textField.placeholder = "Insert name and extension"
+   })
+   present(alert, animated: true, completion: nil)
+}
+func saveFile(name: String) {
+   if documentsList.index(of: name) == nil {
+      let manager = FileManager.default
+      if let fileURL = manager.url(forUbiquityContainerIdentifier: nil) {
+         let iCloudURL = fileURL.appendingPathComponent("Documents/\(name)")
+         let document = MyDocument(fileURL: iCloudURL)
+         document.save(to: iCloudURL, for: .forCreating, completionHandler: nil)
+      }
+   }
+}

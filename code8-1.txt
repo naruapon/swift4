@@ -1,0 +1,11 @@
+import UIKit
+
+class ViewController: UIViewController {
+   override func viewDidLoad() {
+      super.viewDidLoad()
+
+      if let mypattern = UIImage(named: "oranges") {
+         view.backgroundColor = UIColor(patternImage: mypattern)
+      }
+   }
+}

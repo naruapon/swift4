@@ -1,0 +1,25 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var backgroundImage: UIImageView!
+   var visualEffect: UIVisualEffectView!
+
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let blur = UIBlurEffect(style: UIBlurEffectStyle.light)
+      visualEffect = UIVisualEffectView(effect: blur)
+      visualEffect.translatesAutoresizingMaskIntoConstraints = false
+   }
+   @IBAction func addEffect(_ sender: UIButton) {
+      if visualEffect.superview == nil {
+         view.insertSubview(visualEffect, aboveSubview: backgroundImage)
+
+         visualEffect.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+         visualEffect.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+         visualEffect.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+         visualEffect.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+      } else {
+         visualEffect.removeFromSuperview()
+      }
+   }
+}

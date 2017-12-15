@@ -1,0 +1,10 @@
+func showAlert() {
+   let alert = UIAlertController(title: "The field is empty", message: "Are you sure do you want to store an empty string?", preferredStyle: .alert)
+   let action = UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+      print("Value stored")
+   })
+   alert.addAction(action)
+   let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+   alert.addAction(cancel)
+   present(alert, animated: true, completion: nil)
+}

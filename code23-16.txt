@@ -1,0 +1,8 @@
+override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+   if segue.identifier == "showCities" {
+      if let indexPath = self.tableView.indexPathForSelectedRow {
+         let controller = segue.destination as! CitiesViewController
+         controller.selectedCountry = listCountries[indexPath.row].1
+      }
+   }
+}

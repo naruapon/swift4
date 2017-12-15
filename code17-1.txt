@@ -1,0 +1,22 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var nameText: UITextField!
+    
+   @IBAction func saveName(_ sender: UIButton) {
+      var text = nameText.text!
+      text = text.trimmingCharacters(in: .whitespaces)
+      if text == "" {
+         showAlert()
+      } else {
+         print("Value stored: \(text)")
+         nameText.text = ""
+      }
+   }
+   func showAlert() {
+      let alert = UIAlertController(title: "Error", message: "Insert your name in the field", preferredStyle: .alert)
+      let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+      alert.addAction(action)
+      present(alert, animated: true, completion: nil)
+   }
+}

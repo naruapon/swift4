@@ -1,0 +1,15 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var mainScroll: UIScrollView!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let imgView = UIImageView(image: UIImage(named: "doll"))
+      let imgWidth = imgView.frame.size.width
+      let imgHeight = imgView.frame.size.height
+
+      mainScroll.contentSize = CGSize(width: imgWidth, height: imgHeight)
+      mainScroll.addSubview(imgView)
+   }
+}

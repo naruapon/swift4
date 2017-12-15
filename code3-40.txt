@@ -1,0 +1,12 @@
+struct Price {
+   var USD: Double
+   var CAD: Double
+    
+   static func reserve() -> Price {
+      let instance = Price(USD: 10.0, CAD: 11.0)
+      return instance
+   }
+}
+var reserveprice = Price.reserve()
+
+print("Price in USD: \(reserveprice.USD) CAD: \(reserveprice.CAD)")

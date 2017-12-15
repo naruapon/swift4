@@ -1,0 +1,9 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var progress: UIProgressView!
+    
+   @IBAction func updateProgress(_ sender: UISlider) {
+      progress.progress = sender.value
+   }
+}

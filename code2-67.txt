@@ -1,0 +1,7 @@
+var mynumber = 6
+if mynumber % 2 == 0 {
+   mynumber = mynumber + 2
+} else {
+   mynumber = mynumber + 1
+}
+mynumber  // 8

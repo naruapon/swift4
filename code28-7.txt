@@ -1,0 +1,14 @@
+@IBAction func deleteContact(_ sender: UIButton) {
+   if contact != nil {
+      let deleteContact = contact.mutableCopy() as! CNMutableContact
+      let request = CNSaveRequest()
+      request.delete(deleteContact)
+      do {
+         let store = CNContactStore()
+         try store.execute(request)
+      } catch {
+         print("Error")
+      }
+   }
+   navigationController?.popViewController(animated: true)
+}

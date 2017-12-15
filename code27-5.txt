@@ -1,0 +1,13 @@
+import UIKit
+import SafariServices
+
+class ViewController: UIViewController {
+   @IBAction func openWeb(_ sender: UIButton) {
+      let url = URL(string: "http://www.formasterminds.com")
+
+      let config = SFSafariViewController.Configuration()
+      config.barCollapsingEnabled = false
+      let controller = SFSafariViewController(url: url!, configuration: config)
+      present(controller, animated: true, completion: nil)
+   }
+}

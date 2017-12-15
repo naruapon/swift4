@@ -1,0 +1,12 @@
+func checkSubscriptions() {
+   let newSubscription = CKDatabaseSubscription(subscriptionID: "changesDatabase")
+   let info = CKNotificationInfo()
+   info.shouldSendContentAvailable = true
+   newSubscription.notificationInfo = info
+        
+   database.save(newSubscription, completionHandler: { (subscription, error) in
+      if error != nil {
+         print("Error: subscription not saved")
+      }
+   })
+}

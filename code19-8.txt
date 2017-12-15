@@ -1,0 +1,15 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var mainText: UITextView!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      let center = NotificationCenter.default
+      center.addObserver(self, selector: #selector(reportChange(notification:)), name: Notification.Name.UITextViewTextDidChange, object: nil)
+   }
+   @objc func reportChange(notification: Notification) {
+      print("The Text View was modified")
+   }
+}

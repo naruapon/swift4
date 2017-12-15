@@ -1,0 +1,19 @@
+{
+   "query": {
+      "count": 1,
+      "created": "2017-11-02T20:18:15Z",
+      "lang": "en-US",
+      "results": {
+         "channel": {
+            "item": {
+               "condition": {
+                  "code": "30",
+                  "date": "Thu, 02 Nov 2017 12:00 PM PDT",
+                  "temp": "71",
+                  "text": "Partly Cloudy"
+               }
+            }
+         }
+      }
+   }
+}

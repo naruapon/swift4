@@ -1,0 +1,3 @@
+var fruits = ["Apple", "Blueberry", "Banana", "Grape"]
+var newArray = fruits.sorted(by: { (value1, value2) in value1.count < value2.count })
+print(newArray)  // ["Apple", "Grape", "Banana", "Blueberry"]

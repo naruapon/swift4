@@ -1,0 +1,20 @@
+override func viewDidLoad() {
+   super.viewDidLoad()
+        
+   tableView.rowHeight = 100
+   let app = UIApplication.shared
+   let appDelegate = app.delegate as! AppDelegate
+   context = appDelegate.context
+        
+   let request: NSFetchRequest<Books> = Books.fetchRequest()
+   let sort1 = NSSortDescriptor(key: "author.name", ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)))
+   let sort2 = NSSortDescriptor(key: "title", ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)))
+   request.sortDescriptors = [sort1, sort2]
+   fetchedController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: "author.name", cacheName: nil)
+   fetchedController.delegate = self
+   do {
+      try fetchedController.performFetch()
+   } catch {
+      print("Error")
+   }
+}

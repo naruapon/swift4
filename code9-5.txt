@@ -1,0 +1,13 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var picker: UIDatePicker!
+   @IBOutlet weak var showDate: UILabel!
+    
+   @IBAction func getDate(_ sender: UIButton) {
+      let selectedDate = picker.date
+      let format = DateFormatter()
+      format.dateStyle = DateFormatter.Style.medium
+      showDate.text = "Date: \(format.string(from: selectedDate))"
+   }
+}

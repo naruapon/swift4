@@ -1,0 +1,26 @@
+import UIKit
+import CloudKit
+
+class PicturesViewController: UIViewController {
+   @IBOutlet weak var cityPicture: UIImageView!
+   var selectedCity: CKRecordID!
+    
+   override func viewDidLoad() {
+      let containerDefault = CKContainer.default()
+      let database = containerDefault.privateCloudDatabase
+        
+      if selectedCity != nil {
+         database.fetch(withRecordID: selectedCity, completionHandler: { (recordSaved, error) in
+            if error != nil {
+               print("Error: record not found")
+            } else if let record = recordSaved {
+               let main = OperationQueue.main
+               main.addOperation({
+                  let asset = record["picture"] as! CKAsset
+                  self.cityPicture.image = UIImage(contentsOfFile: asset.fileURL.path)
+               })
+            }
+         })
+      }
+   }
+}

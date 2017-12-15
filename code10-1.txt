@@ -1,0 +1,18 @@
+import UIKit
+
+class ViewController: UIViewController {
+   var counter: Int = 1
+   var timer: Timer!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(report), userInfo: nil, repeats: true)
+   }
+   @objc func report(sender: Timer) {
+      print("\(counter) times")
+      counter += 1
+      if counter > 10 {
+         timer.invalidate()
+      }
+   }
+}

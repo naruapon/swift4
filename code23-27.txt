@@ -1,0 +1,12 @@
+func checkZones() {
+   let newZone = CKRecordZone(zoneName: "myNewZone")
+   database.fetch(withRecordZoneID: newZone.zoneID, completionHandler: { (zone, error) in
+      if let error = error as? CKError {
+         if error.code == CKError.Code.zoneNotFound {
+            print("Not found")
+         } else {
+            print("Zone Found")
+         }
+      }
+   })
+}

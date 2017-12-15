@@ -1,0 +1,40 @@
+import UIKit
+import CoreLocation
+import UserNotifications
+
+class ViewController: UIViewController, CLLocationManagerDelegate {
+   var manager: CLLocationManager!
+   var initial: CLLocation!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      manager = CLLocationManager()
+      manager.delegate = self
+      manager.distanceFilter = kCLHeadingFilterNone
+      manager.desiredAccuracy = kCLLocationAccuracyBest
+      manager.allowsBackgroundLocationUpdates = true
+      manager.requestAlwaysAuthorization()
+      manager.startUpdatingLocation()
+   }
+   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+      if let location = locations.last {
+         if initial == nil {
+            initial = location
+            let coordinates = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            let region = CLCircularRegion(center: coordinates, radius: 50, identifier: "Home")
+            manager.startMonitoring(for: region)
+         }
+      }
+   }
+   func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+      if region.identifier == "Home" {
+         let notificationcenter = UNUserNotificationCenter.current()
+         let content = UNMutableNotificationContent()
+         content.title = "Reminder"
+         content.body = "Do not forget the keys!"
+         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+         let request = UNNotificationRequest(identifier: "reminder", content: content, trigger: trigger)
+         notificationcenter.add(request, withCompletionHandler: nil)
+      }
+   }
+}

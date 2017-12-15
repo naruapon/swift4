@@ -1,0 +1,10 @@
+import UIKit
+import SafariServices
+
+class ViewController: UIViewController {
+   @IBAction func openWeb(_ sender: UIButton) {
+      let url = URL(string: "http://www.formasterminds.com")
+      let controller = SFSafariViewController(url: url!)
+      present(controller, animated: true, completion: nil)
+   }
+}

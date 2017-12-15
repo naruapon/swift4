@@ -1,0 +1,23 @@
+import UIKit
+import CoreLocation
+
+class ViewController: UIViewController {
+   @IBOutlet weak var longitudeLabel: UILabel!
+   @IBOutlet weak var latitudeLabel: UILabel!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      let address = "767 5th Ave, New York, NY 10153, United States"
+      let geocoding = CLGeocoder()
+      geocoding.geocodeAddressString(address, completionHandler: { (places, error) in
+         if places != nil {
+            let place = places?.first
+            if let coordinates = place?.location?.coordinate {
+               self.longitudeLabel.text = String(coordinates.longitude)
+               self.latitudeLabel.text = String(coordinates.latitude)
+            }
+         }
+      })
+   }
+}

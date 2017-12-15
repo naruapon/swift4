@@ -1,0 +1,12 @@
+import Foundation
+
+class MyControl: NSObject {
+   @objc var round = false {
+      didSet {
+         self.didChangeValue(forKey: "round")
+      }
+      willSet {
+         self.willChangeValue(forKey: "round")
+      }
+   }
+}

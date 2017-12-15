@@ -1,0 +1,15 @@
+import Foundation
+
+let calendar = Calendar.current
+var components = DateComponents()
+components.year = 1970
+components.month = 8
+components.day = 21
+
+var today = Date()
+var birthday = calendar.date(from: components)
+
+if let olddate = birthday {
+   var components = calendar.dateComponents([.day], from: olddate, to: today)
+   print("Days between dates: \(components.day!)")
+}

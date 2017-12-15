@@ -1,0 +1,28 @@
+import UIKit
+
+class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+   @IBOutlet weak var pictureView: UIImageView!
+   @IBOutlet weak var pictureButton: UIButton!
+    
+   @IBAction func takePicture(_ sender: UIButton) {
+      let mediaPicker = UIImagePickerController()
+      mediaPicker.delegate = self
+      mediaPicker.sourceType = .savedPhotosAlbum
+
+      mediaPicker.modalPresentationStyle = .popover
+      if let popover = mediaPicker.popoverPresentationController {
+         popover.sourceView = pictureButton
+         popover.sourceRect = pictureButton.bounds
+          popover.permittedArrowDirections = [.up]
+      }
+      present(mediaPicker, animated: true, completion: nil)
+   }
+   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+      let picture = info[UIImagePickerControllerOriginalImage] as! UIImage
+      pictureView.image = picture
+      dismiss(animated: true, completion: nil)
+   }
+   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+      dismiss(animated: true, completion: nil)
+   }
+}

@@ -1,0 +1,10 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var message: UITextView!
+
+   @IBAction func selection(_ sender: UIButton) {
+      let attributedText = message.textStorage
+      attributedText.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.red, range: message.selectedRange)
+   }
+}

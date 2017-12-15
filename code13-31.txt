@@ -1,0 +1,37 @@
+import UIKit
+
+class SecondViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+   @IBOutlet weak var selectTemperature: UISegmentedControl!
+   @IBOutlet weak var picker: UIPickerView!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      picker.delegate = self
+      picker.dataSource = self
+      picker.selectRow(AppData.selectedCity, inComponent: 0, animated: false)
+      if AppData.celsius {
+         selectTemperature.selectedSegmentIndex = 0
+      } else {
+         selectTemperature.selectedSegmentIndex = 1
+      }
+   }
+   @IBAction func changeTemperature(_ sender: UISegmentedControl) {
+      if sender.selectedSegmentIndex == 0 {
+         AppData.celsius = true
+      } else {
+         AppData.celsius = false
+      }
+   }
+   func numberOfComponents(in pickerView: UIPickerView) -> Int {
+      return 1
+   }
+   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+      return AppData.citiesName.count
+   }
+   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+      return AppData.citiesName[row]
+   }
+   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+      AppData.selectedCity = row
+   }
+}

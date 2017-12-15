@@ -1,0 +1,4 @@
+import Foundation
+
+var length = 12.3472
+var mytext = String(format: "%.2f meters", arguments: [length])  // 12.35

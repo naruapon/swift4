@@ -1,0 +1,31 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBAction func loginUser(_ sender: UIButton) {
+      let alert = UIAlertController(title: "Insert Email and Password", message: nil, preferredStyle: .alert)
+        
+      let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+      alert.addAction(cancel)
+        
+      let action = UIAlertAction(title: "Login", style: .default, handler: { (action) in
+         if let fields = alert.textFields {
+            let email = fields[0].text
+            let password = fields[1].text
+                
+            if email == "test@yahoo.com" && password == "12345" {
+               self.performSegue(withIdentifier: "showMainScreen", sender: self)
+            }
+         }
+      })
+      alert.addAction(action)
+        
+      alert.addTextField(configurationHandler: { (textField) in
+         textField.placeholder = "Email"
+      })
+      alert.addTextField(configurationHandler: { (textField) in
+         textField.placeholder = "Password"
+         textField.isSecureTextEntry = true
+      })
+      present(alert, animated: true, completion: nil)
+   }
+}

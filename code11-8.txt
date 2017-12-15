@@ -1,0 +1,59 @@
+import UIKit
+
+class ViewController: UIViewController, UIScrollViewDelegate {
+   @IBOutlet weak var mainScroll: UIScrollView!
+   @IBOutlet weak var pageCounter: UIPageControl!
+   var imageViews: [UIImageView] = []
+   var page: Int = 0
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let images = ["spot1", "spot2", "spot3"]
+      pageCounter.numberOfPages = images.count
+      pageCounter.pageIndicatorTintColor = UIColor.black
+      pageCounter.currentPageIndicatorTintColor = UIColor.white
+        
+      mainScroll.delegate = self
+      mainScroll.isPagingEnabled = true
+        
+      view.setNeedsLayout()
+      view.layoutIfNeeded()
+      let scrollWidth = mainScroll.frame.size.width
+      let scrollHeight = mainScroll.frame.size.height
+        
+      var posX: CGFloat = 0
+      for img in images {
+         let childScroll = UIScrollView(frame: CGRect(x: posX, y: 0, width: scrollWidth, height: scrollHeight))
+         childScroll.contentSize = CGSize(width: scrollWidth, height: scrollHeight)
+         childScroll.minimumZoomScale = 1.0
+         childScroll.maximumZoomScale = 4.0
+         childScroll.delegate = self
+            
+         let imgView = UIImageView(frame: CGRect(x: 0, y: 0, width: scrollWidth, height: scrollHeight))
+         imgView.image = UIImage(named: img)
+         imgView.contentMode = .scaleAspectFill
+         imgView.clipsToBounds = true
+         imageViews.append(imgView)
+            
+         childScroll.addSubview(imgView)
+         mainScroll.addSubview(childScroll)
+         mainScroll.contentSize = CGSize(width: scrollWidth * CGFloat(imageViews.count), height: scrollHeight)
+         posX = posX + scrollWidth
+      }
+   }
+   func scrollViewDidScroll(_ scrollView: UIScrollView) {
+      let pageWidth = mainScroll.frame.size.width
+      let getPage = round(mainScroll.contentOffset.x / pageWidth)
+
+      let currentPage = Int(getPage)
+      if currentPage != page {
+         let scroll = imageViews[page].superview as! UIScrollView
+         scroll.setZoomScale(1.0, animated: true)
+         page = Int(currentPage)
+         pageCounter.currentPage = page
+      }
+   }
+   func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+      return imageViews[page]
+   }
+}

@@ -1,0 +1,3 @@
+var fruits: Set = ["Apple", "Orange", "Banana"]
+var orderFruits = fruits.sorted()
+print(orderFruits[0])  // "Apple"

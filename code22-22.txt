@@ -1,0 +1,19 @@
+func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+   switch type {
+      case .delete:
+         if let path = indexPath {
+            tableView.deleteRows(at: [path], with: .fade)
+         }
+      case .insert:
+         if let path = newIndexPath {
+            tableView.insertRows(at: [path], with: .fade)
+         }
+      case .update:
+         if let path = indexPath {
+            let cell = tableView.cellForRow(at: path) as! BooksCell
+            updateCell(cell: cell, path: path)
+         }
+      default:
+         break
+   }
+}

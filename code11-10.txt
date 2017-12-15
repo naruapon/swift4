@@ -1,0 +1,15 @@
+import UIKit
+
+class ViewController: UIViewController, UITextViewDelegate {
+   @IBOutlet weak var mainScroll: UIScrollView!
+   @IBOutlet weak var descriptionView: UITextView!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      descriptionView.delegate = self
+   }
+   func textViewDidBeginEditing(_ textView: UITextView) {
+      let height = descriptionView.frame.origin.y - 8
+      mainScroll.setContentOffset(CGPoint(x: 0, y: height), animated: true)
+   }
+}

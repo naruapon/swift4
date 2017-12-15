@@ -1,0 +1,30 @@
+import UIKit
+
+class ViewController: UIViewController {
+   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+      super.traitCollectionDidChange(previousTraitCollection)
+        
+      var horizontal: String?
+      var vertical: String?
+        
+      switch traitCollection.horizontalSizeClass {
+         case .regular:
+            horizontal = "Regular"
+         case .compact:
+            horizontal = "Compact"
+         default:
+            break
+      }
+      switch traitCollection.verticalSizeClass {
+         case .regular:
+            vertical = "Regular"
+         case .compact:
+            vertical = "Compact"
+         default:
+            break
+      }
+      if horizontal != nil && vertical != nil {
+         print("The configuration is \(horizontal!) width and \(vertical!) height")
+      }
+   }
+}

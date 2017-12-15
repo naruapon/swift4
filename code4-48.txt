@@ -1,0 +1,5 @@
+import UIKit
+
+let device = UIDevice.current
+print("Name: \(device.name) Model: \(device.model)")
+print("System: \(device.systemName) \(device.systemVersion)")

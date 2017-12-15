@@ -1,0 +1,8 @@
+{
+   "title": "The Shining",
+   "author": "Stephen King",
+   "publisher": {
+      "name": "Random House",
+      "date": "2008-06-24T13:30:52.123Z"
+   }
+}

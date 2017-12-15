@@ -1,0 +1,14 @@
+@IBAction func showDirections(_ sender: UIBarButtonItem) {
+   let request = MKDirectionsRequest()
+   request.source = origin
+   request.destination = destination
+   request.requestsAlternateRoutes = false
+        
+   let directions = MKDirections(request: request)
+   directions.calculate(completionHandler: { (results, error) in
+      if let routes = results?.routes {
+         let route = routes.first!
+         self.mapView.add(route.polyline, level: .aboveRoads)
+      }
+   })
+}

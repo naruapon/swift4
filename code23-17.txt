@@ -1,0 +1,77 @@
+import UIKit
+import CloudKit
+
+class CitiesViewController: UITableViewController {
+   var selectedCountry: CKRecordID!
+   var listCities: [(String, CKRecordID)] = []
+
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+        
+      let containerDefault = CKContainer.default()
+      let database = containerDefault.privateCloudDatabase
+        
+      if selectedCountry != nil {
+         let predicate = NSPredicate(format: "country = %@", selectedCountry)
+         let query = CKQuery(recordType: "Cities", predicate: predicate)
+         database.perform(query, inZoneWith: nil, completionHandler: { (records, error) in
+            if error != nil {
+               print("Error: records not found")
+            } else if let list = records {
+               let main = OperationQueue.main
+               main.addOperation({
+                  self.listCities = []
+                  for record in list {
+                     let city = record["name"] as! String
+                     self.listCities.append((city, record.recordID))
+                  }
+                  self.tableView.reloadData()
+               })
+            }
+         })
+      }
+   }
+   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      return listCities.count
+   }
+   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      let cell = tableView.dequeueReusableCell(withIdentifier: "citiesCell", for: indexPath)
+      cell.textLabel?.text = listCities[indexPath.row].0
+      return cell
+   }
+   @IBAction func addCity(_ sender: UIBarButtonItem) {
+      let alert = UIAlertController(title: "Insert New City", message: nil, preferredStyle: .alert)
+      let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+      alert.addAction(cancel)
+      let action = UIAlertAction(title: "Save", style: .default, handler: { (action) in
+         if let fields = alert.textFields {
+            let name = fields[0].text!
+            self.insertCity(name: name)
+         }
+      })
+      alert.addAction(action)
+      alert.addTextField(configurationHandler: nil)
+      present(alert, animated: true, completion: nil)
+   }
+   func insertCity(name: String) {
+      let text = name.trimmingCharacters(in: .whitespaces)
+      if text != "" {
+         let containerDefault = CKContainer.default()
+         let database = containerDefault.privateCloudDatabase
+            
+         let id = CKRecordID(recordName: "id-\(text)")
+         let reference = CKReference(recordID: selectedCountry, action: CKReferenceAction.deleteSelf)
+            
+         let record = CKRecord(recordType: "Cities", recordID: id)
+         record.setObject(text as NSString, forKey: "name")
+         record.setObject(reference, forKey: "country")
+         database.save(record, completionHandler: { (recordSaved, error) in
+            if error != nil {
+               print("Error: record not saved")
+            }
+         })
+         listCities.append((text, id))
+         tableView.reloadData()
+      }
+   }
+}

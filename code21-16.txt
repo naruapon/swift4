@@ -1,0 +1,32 @@
+import UIKit
+
+class ViewController: UIViewController, UITextViewDelegate {
+   @IBOutlet weak var diaryText: UITextView!
+   var fileURL: URL!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      diaryText.delegate = self
+      let manager = FileManager.default
+      let documents = manager.urls(for: .documentDirectory, in: .userDomainMask)
+      let docURL = documents.first!
+      fileURL = docURL.appendingPathComponent("userdata.txt")
+      let filePath = fileURL.path
+      if manager.fileExists(atPath: filePath) {
+         if let content = manager.contents(atPath: filePath) {
+            diaryText.text = String(data: content, encoding: .utf8)
+         }
+      } else {
+         manager.createFile(atPath: filePath, contents: nil, attributes: nil)
+      }
+   }
+   func textViewDidChange(_ textView: UITextView) {
+      let text = diaryText.text!
+      do {
+         try text.write(to: fileURL, atomically: true, encoding: .utf8)
+      } catch {
+         print("Error")
+      }
+   }
+}

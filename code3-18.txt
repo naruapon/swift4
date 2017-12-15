@@ -1,0 +1,10 @@
+func first() -> () -> Int {
+   var counter = 0
+    
+   return { () -> Int in
+      counter += 1
+      return counter
+   }
+}
+let incrementor = first()
+print("The count is \(incrementor())")  // "The count is 1”

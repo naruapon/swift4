@@ -1,0 +1,9 @@
+import Foundation
+
+var today = Date()
+
+let formatter = DateFormatter()
+formatter.dateStyle = DateFormatter.Style.medium
+formatter.timeStyle = DateFormatter.Style.medium
+
+var mydate = formatter.string(from: today) // "Aug 30, 2017, 12:20:59 PM"

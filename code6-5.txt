@@ -1,0 +1,18 @@
+import UIKit
+
+class ViewController: UIViewController {
+   override func viewDidLoad() {
+      super.viewDidLoad()
+
+      let grayView = UIView(frame: CGRect.zero)
+      grayView.backgroundColor = UIColor.lightGray
+      grayView.translatesAutoresizingMaskIntoConstraints = false
+      view.addSubview(grayView)
+
+      let constraint1 = grayView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0)
+      let constraint2 = grayView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
+      let constraint3 = grayView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0)
+      let constraint4 = grayView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+      view.addConstraints([constraint1, constraint2, constraint3, constraint4])
+    }
+}

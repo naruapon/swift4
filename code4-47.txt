@@ -1,0 +1,10 @@
+import UIKit
+
+let app = UIApplication.shared
+
+var state = app.applicationState
+if state == UIApplicationState.active {
+   let rect = app.statusBarFrame
+   print("Origin: \(rect.origin.x), \(rect.origin.y)")
+   print("Size: \(rect.size.width) x \(rect.size.height)")
+}

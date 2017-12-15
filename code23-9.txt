@@ -1,0 +1,13 @@
+@objc func updateList(notification: NSNotification) {
+   metaData.disableUpdates()
+   for item in metaData.results as! [NSMetadataItem] {
+      let name = item.value(forAttribute: NSMetadataItemFSNameKey) as! String
+      if documentsList.index(of: name) == nil {
+         documentsList.append(name)
+      }
+   }
+   documentsList.sort(by: { (value1, value2) in value1 < value2 })
+        
+   tableView.reloadData()
+   metaData.enableUpdates()
+}

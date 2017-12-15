@@ -1,0 +1,17 @@
+import UIKit
+
+class DrawingView: UIView {
+   override func draw(_ rect: CGRect) {
+      if let context = UIGraphicsGetCurrentContext() {
+         context.translateBy(x: 100, y: 100)
+            
+         let list = stride(from: 0, to: 360, by: 45)
+         for pos in list {
+            let degrees = CGFloat(Float(pos) * Float.pi / 180)
+            context.rotate(by: degrees)
+            let frame = CGRect(x: 0, y: 0, width: 50, height: 20)
+            context.stroke(frame)
+         }
+      }
+   }
+}

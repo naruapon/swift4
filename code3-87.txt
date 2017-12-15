@@ -1,0 +1,10 @@
+enum Number: String {
+   case one = "Number 1"
+   case two = "Number 2"
+   case three = "Number 3"
+}
+var mynumber = Number(rawValue: "Number 2")
+
+if mynumber == .two {
+   print("Correct Value")
+}

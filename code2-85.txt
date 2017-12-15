@@ -1,0 +1,10 @@
+var message = "Empty"
+let fruits = ["Banana", "Orange", "Apple"]
+let myfruit = fruits[1]
+
+switch myfruit {
+   case "Banana", "Apple":
+      message = "You have the right fruit"
+   default:
+      break
+}

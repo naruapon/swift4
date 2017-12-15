@@ -1,0 +1,16 @@
+func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+   let button = UIContextualAction(style: .normal, title: "Remove", handler: { (action, view, completion) in
+      let row = indexPath.row
+      let item = AppData.items[row]
+      AppData.details.removeValue(forKey: item)
+      AppData.items.remove(at: row)
+
+      self.myTable.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+      completion(true)
+   })
+   button.backgroundColor = UIColor.blue
+
+   let config = UISwipeActionsConfiguration(actions: [button])
+   config.performsFirstActionWithFullSwipe = false
+   return config
+}

@@ -1,0 +1,10 @@
+override func viewDidLoad() {
+   super.viewDidLoad()
+   let center = NotificationCenter.default
+   center.addObserver(self, selector: #selector(metadataReceived(notification:)), name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil)
+        
+   metaData = NSMetadataQuery()
+   metaData.predicate = NSPredicate(format: "%K == %@", NSMetadataItemFSNameKey, "myfile.dat")
+   metaData.searchScopes = [NSMetadataQueryUbiquitousDocumentsScope]
+   metaData.start()
+}

@@ -1,0 +1,18 @@
+import UIKit
+import ContactsUI
+
+class ViewController: UIViewController, CNContactPickerDelegate {
+   @IBOutlet weak var nameLabel: UILabel!
+    
+   @IBAction func selectContact(_ sender: UIButton) {
+      let controller = CNContactPickerViewController()
+      controller.predicateForSelectionOfProperty = NSPredicate(format: "key = %@", argumentArray: ["phoneNumbers"])
+      controller.delegate = self
+      present(controller, animated: true, completion: nil)
+   }
+   func contactPicker(_ picker: CNContactPickerViewController, didSelect contactProperty: CNContactProperty) {
+      let phone = contactProperty.value as! CNPhoneNumber
+      let number = phone.stringValue
+      nameLabel.text = number
+   }
+}

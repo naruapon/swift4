@@ -1,0 +1,18 @@
+@IBAction func postPicture(_ sender: UIBarButtonItem) {
+   if let image = picture {
+      let width = image.size.width / 2
+      let height = image.size.height / 2
+      let imageSize = CGSize(width: width, height: height)
+            
+      let render = UIGraphicsImageRenderer(size: imageSize)
+      render.image(actions: { (renderContext) in
+         let context = renderContext.cgContext
+         UIGraphicsPushContext(context)
+         image.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
+
+         let items = [renderContext.currentImage]
+         let controller = UIActivityViewController(activityItems: items, applicationActivities: nil)
+         present(controller, animated: true, completion: nil)
+      })
+   }
+}

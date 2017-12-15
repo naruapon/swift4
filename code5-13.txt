@@ -1,0 +1,31 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var display: UILabel!
+    
+   var current: Double = 0
+   var total: Double = 0
+   let digits = 8
+   var format = NumberFormatter()
+    
+   @IBAction func addNumber(_ sender: UIButton) {
+      let number = Double(sender.tag)
+      let text = display.text!
+      if current == 0 {
+         current = number
+      } else if text.count < digits {
+         current = (current * 10) + number
+      }
+      display.text = format.string(from: NSNumber(value: current))
+   }
+   @IBAction func calculate(_ sender: UIButton) {
+      total += current
+      display.text = format.string(from: NSNumber(value: total))
+      current = 0
+   }
+   @IBAction func clean(_ sender: UIButton) {
+      current = 0
+      total = 0
+      display.text = "0"
+   }
+}

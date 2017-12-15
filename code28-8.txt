@@ -1,0 +1,15 @@
+@IBAction func updateContact(_ sender: UIButton) {
+   if contact != nil {
+      let updateContact = contact.mutableCopy() as! CNMutableContact
+      updateContact.note = "Last call \(Date())"
+      let request = CNSaveRequest()
+      request.update(updateContact)
+      do {
+         let store = CNContactStore()
+         try store.execute(request)
+      } catch {
+         print("Error")
+      }
+   }
+   navigationController?.popViewController(animated: true)
+}

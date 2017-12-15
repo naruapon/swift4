@@ -1,0 +1,18 @@
+import UIKit
+
+class ViewController: UIViewController {
+   override func viewDidLoad() {
+      super.viewDidLoad()
+
+      let mylabel = UILabel(frame: CGRect.zero)
+      mylabel.text = "Hello World"
+      mylabel.textAlignment = .center
+      mylabel.translatesAutoresizingMaskIntoConstraints = false
+      view.addSubview(mylabel)
+
+      let constraint1 = NSLayoutConstraint(item: mylabel, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 50)
+      let constraint2 = NSLayoutConstraint(item: mylabel, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 200)
+      let constraint3 = NSLayoutConstraint(item: mylabel, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
+      view.addConstraints([constraint1, constraint2, constraint3])
+   }
+}

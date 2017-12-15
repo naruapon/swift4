@@ -1,0 +1,13 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var animationView: UIView!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let layer = animationView.layer
+      layer.borderColor = UIColor.black.cgColor
+      layer.borderWidth = 5
+      layer.cornerRadius = 10
+   }
+}

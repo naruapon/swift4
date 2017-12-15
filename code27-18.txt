@@ -1,0 +1,10 @@
+struct Publisher: Codable {
+   let name: String
+   let date: Date
+   let edition: Int
+}
+struct Book: Codable {
+   let title: String
+   let author: String
+   let publisher: Publisher
+}

@@ -1,0 +1,14 @@
+var message = ""
+var ages = (10, 35)
+
+switch ages {
+   case (_, 11...20):
+      message = "Too close"
+   case (_, 21...30):
+      message = "The right age"
+   case (_, 31...40):
+      message = "Too far"
+   default:
+      message = "Way too far"
+}
+message  // "Too far"

@@ -1,0 +1,30 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var pictureView: UIImageView!
+   @IBOutlet weak var pressButton: UIButton!
+   let husky = UIImage(named: "husky")
+   let door = UIImage(named: "door")
+    
+   let buttonnormal = UIImage(named: "buttonnormal")
+   let buttondown = UIImage(named: "buttondown")
+   let buttonstopnormal = UIImage(named: "buttonstopnormal")
+   let buttonstopdown = UIImage(named: "buttonstopdown")
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      pictureView.animationImages = [door!, husky!]
+      pictureView.animationDuration = 4
+   }
+   @IBAction func changePicture(_ sender: UIButton) {
+      if pictureView.isAnimating {
+         pressButton.setImage(buttonnormal, for: .normal)
+         pressButton.setImage(buttondown, for: .highlighted)
+         pictureView.stopAnimating()
+      } else {
+         pressButton.setImage(buttonstopnormal, for: .normal)
+         pressButton.setImage(buttonstopdown, for: .highlighted)
+         pictureView.startAnimating()
+      }
+   }
+}

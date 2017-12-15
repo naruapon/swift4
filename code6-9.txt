@@ -1,0 +1,15 @@
+import UIKit
+
+class ViewController: UIViewController {
+   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+      super.viewWillTransition(to: size, with: coordinator)
+        
+      let width = size.width
+      let height = size.height
+      if width > height {
+         print("We are going Landscape")
+      } else {
+         print("We are going Portrait")
+      }    
+   }
+}

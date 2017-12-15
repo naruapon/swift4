@@ -1,0 +1,2 @@
+var absolutenumber = abs(-25)
+print("The number is: \(absolutenumber)")  // "The number is: 25"

@@ -1,0 +1,9 @@
+var text = "Hello World"
+var counter = 0
+
+for letter in text {
+   if letter == "l" {
+      counter += 1
+   }
+}
+print("The text has \(counter) letters L")  // "The text has 3 letters L"

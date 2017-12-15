@@ -1,0 +1,5 @@
+func sayhello(name: String = "Undefined") -> String {
+   let text = "Your name is " + name
+   return text
+}
+let message = sayhello()  // "Your name is Undefined"

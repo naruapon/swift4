@@ -1,0 +1,10 @@
+import UIKit
+
+let myfont = UIFont.systemFont(ofSize: 30)
+let myrange = NSRange(0..<5)
+
+var mytext = NSMutableAttributedString(string: "Hello World")
+mytext.addAttribute(NSAttributedStringKey.font, value: myfont, range: myrange)
+
+var label = UILabel(frame: CGRect(x: 20, y: 20, width: 150, height: 30))
+label.attributedText = mytext

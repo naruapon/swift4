@@ -1,0 +1,21 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var stepper: UIStepper!
+   @IBOutlet weak var counter: UILabel!
+   var kvStorage: NSUbiquitousKeyValueStore!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      kvStorage = NSUbiquitousKeyValueStore()
+      let control = kvStorage.double(forKey: "control")
+      stepper.value = control
+      counter.text = String(control)
+   }
+   @IBAction func changeValue(_ sender: UIStepper) {
+      let current = stepper.value
+      counter.text = String(current)
+      kvStorage.set(current, forKey: "control")
+      kvStorage.synchronize()
+   }
+}

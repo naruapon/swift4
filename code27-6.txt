@@ -1,0 +1,16 @@
+import UIKit
+import SafariServices
+
+class ViewController: UIViewController, SFSafariViewControllerDelegate {
+   @IBOutlet weak var openButton: UIButton!
+
+   @IBAction func openWeb(_ sender: UIButton) {
+      let url = URL(string: "http://www.formasterminds.com")
+      let controller = SFSafariViewController(url: url!)
+      controller.delegate = self
+      present(controller, animated: true, completion: nil)
+   }
+   func safariViewControllerDidFinish(_ controller: SFSafariViewController){
+      openButton.isEnabled = false
+   }
+}

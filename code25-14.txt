@@ -1,0 +1,38 @@
+import UIKit
+import MediaPlayer
+
+class ViewController: UIViewController {
+   @IBOutlet weak var playButton: UIButton!
+   var audioPlayer: AVAudioPlayer!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      let predicate = MPMediaPropertyPredicate(value: "Road of Resistance", forProperty: MPMediaItemPropertyTitle)
+      let mediaItems = MPMediaQuery(filterPredicates: [predicate])
+      if let items = mediaItems.items {
+         if !items.isEmpty {
+            let song = items[0]
+            let songURL = song.assetURL
+            audioPlayer = try? AVAudioPlayer(contentsOf: songURL!)
+            if audioPlayer != nil {
+               audioPlayer.prepareToPlay()
+            }
+         } else {
+            print("Song not found")
+         }
+      }
+   }
+   @IBAction func playSong(_ sender: UIButton) {
+      if let player = audioPlayer {
+         if player.isPlaying {
+            playButton.setTitle("Play", for: .normal)
+            player.stop()
+            player.currentTime = 0
+         } else {
+            playButton.setTitle("Stop", for: .normal)
+            audioPlayer.play()
+         }
+      }
+   }
+}

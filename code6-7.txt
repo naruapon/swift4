@@ -1,0 +1,18 @@
+import UIKit
+
+class ViewController: UIViewController {
+   override func viewDidLoad() {
+      super.viewDidLoad()
+
+      let grayView = UIView(frame: CGRect.zero)
+      grayView.backgroundColor = UIColor.lightGray
+      grayView.translatesAutoresizingMaskIntoConstraints = false
+      view.addSubview(grayView)
+
+      let marginsGuide = view.layoutMarginsGuide
+      grayView.leadingAnchor.constraint(equalTo: marginsGuide.leadingAnchor, constant: 0).isActive = true
+      grayView.trailingAnchor.constraint(equalTo: marginsGuide.trailingAnchor, constant: 0).isActive = true
+      grayView.topAnchor.constraint(equalTo: marginsGuide.topAnchor, constant: 0).isActive = true
+      grayView.bottomAnchor.constraint(equalTo: marginsGuide.bottomAnchor, constant: 0).isActive = true
+   }
+}

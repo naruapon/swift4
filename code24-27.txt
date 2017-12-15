@@ -1,0 +1,19 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var animationView: UIView!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let layer = animationView.layer
+      layer.borderColor = UIColor.black.cgColor
+      layer.borderWidth = 5
+      layer.cornerRadius = 10
+      let degrees = CGFloat(45 * Float.pi / 180)
+        
+      var matrix = CATransform3DIdentity
+      matrix.m34 = 1 / -500.0
+      matrix = CATransform3DRotate(matrix, degrees, 0, 1, 0)
+      layer.transform = matrix
+   }
+}

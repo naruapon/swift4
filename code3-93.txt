@@ -1,0 +1,19 @@
+class Employee {
+   var name = "Undefined"
+   var state = "Active"
+   var difference = 0
+    
+   var age: Int = 0 {
+      willSet {
+         if newValue > 65 {
+            state = "Retired"
+         }
+      }
+      didSet {
+         difference = age - oldValue
+      }
+   }
+}
+let employee1 = Employee()
+employee1.age = 66
+print(employee1.state)  // "Retired"

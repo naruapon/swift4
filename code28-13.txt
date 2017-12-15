@@ -1,0 +1,19 @@
+import UIKit
+import ContactsUI
+
+class ViewController: UIViewController, CNContactPickerDelegate {
+   @IBOutlet weak var nameLabel: UILabel!
+    
+   @IBAction func selectContact(_ sender: UIButton) {
+      let controller = CNContactPickerViewController()
+      controller.predicateForEnablingContact = NSPredicate(format: "givenName = %@", argumentArray: ["John"])
+      controller.delegate = self
+      present(controller, animated: true, completion: nil)
+   }
+   func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+      if contact.areKeysAvailable([CNContactGivenNameKey as CNKeyDescriptor, CNContactFamilyNameKey as CNKeyDescriptor]) {
+         let name = "\(contact.givenName) \(contact.familyName)"
+         nameLabel.text = name
+      }
+   }
+}

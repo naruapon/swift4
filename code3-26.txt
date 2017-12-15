@@ -1,0 +1,14 @@
+struct Price {
+   var USD = 0.0
+   var CAD = 0.0
+}
+struct Item {
+   var quantity = 0.0
+   var name = "Not defined"
+   var price = Price()
+}
+var purchase = Item()
+
+purchase.quantity = 2
+purchase.name = "Lamps"
+purchase.price.USD = 10.50

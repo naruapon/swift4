@@ -1,0 +1,17 @@
+import UIKit
+
+class PictureViewController: UIViewController {
+   @IBOutlet weak var bookCover: UIImageView!
+   var selected: Int!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      if selected != nil {
+         let file = AppData.items[selected]
+         bookCover.image = UIImage(named: file)
+      }
+   }
+   @IBAction func closePicture(_ sender: UIButton) {
+      dismiss(animated: true, completion: nil)
+   }
+}

@@ -1,0 +1,14 @@
+import UIKit
+
+class AddItemViewController: UIViewController {
+   @IBOutlet weak var newItem: UITextField!
+   var delegate: ViewController!
+
+   @IBAction func saveItem(_ sender: UIButton) {
+      var text = newItem.text!
+      text = text.trimmingCharacters(in: .whitespaces)
+      if text != "" {
+         delegate.saveItem(title: text)
+      }
+   }
+}

@@ -1,0 +1,5 @@
+var fruits = ["Apple", "Grape", "Banana", "Grape"]
+
+var filteredArray = fruits.filter({ (fruit: String) -> Bool in
+   return fruit != "Grape"
+})

@@ -1,0 +1,5 @@
+func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+   let item = AppData.items[sourceIndexPath.row]
+   AppData.items.remove(at: sourceIndexPath.row)
+   AppData.items.insert(item, at: destinationIndexPath.row)
+}

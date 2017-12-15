@@ -1,0 +1,13 @@
+import UIKit
+
+let container = UIView(frame: CGRect(x: 0, y: 0, width: 375, height: 667))
+container.backgroundColor = UIColor.red
+
+let subview1 = UIView(frame: CGRect(x: 20, y: 20, width: 335, height: 300))
+subview1.backgroundColor = UIColor.lightGray
+
+let subview2 = UIView(frame: CGRect(x: 20, y: 347, width: 335, height: 300))
+subview2.backgroundColor = UIColor.lightGray
+
+container.addSubview(subview1)
+container.addSubview(subview2)

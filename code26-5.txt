@@ -1,0 +1,36 @@
+import UIKit
+
+class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+   @IBOutlet weak var pictureView: UIImageView!
+    
+   @IBAction func takePicture(_ sender: UIButton) {
+      let mediaPicker = UIImagePickerController()
+      mediaPicker.delegate = self
+      let sourceAvailable = UIImagePickerController.isSourceTypeAvailable(.camera)
+      if sourceAvailable {
+         mediaPicker.sourceType = .camera
+         present(mediaPicker, animated: true, completion: nil)
+      } else {
+         print("The media is not available")
+      }
+   }
+   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+      let picture = info[UIImagePickerControllerOriginalImage] as! UIImage
+      pictureView.image = picture
+      UIImageWriteToSavedPhotosAlbum(picture, self, #selector(confirmImage(image:didFinishSavingWithError:contextInfo:)), nil)
+      dismiss(animated: true, completion: nil)
+   }
+   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+      dismiss(animated: true, completion: nil)
+   }
+   @objc func confirmImage(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
+      if error == nil {
+         let alert = UIAlertController(title: "Picture Saved", message: "The picture was added to your photos", preferredStyle: .alert)
+         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+         alert.addAction(action)
+         present(alert, animated: true, completion: nil)
+      } else {
+         print("Error")
+      }
+   }
+}

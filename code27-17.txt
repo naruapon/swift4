@@ -1,0 +1,17 @@
+import UIKit
+
+class ViewController: UIViewController {
+   override func viewDidLoad() {
+      super.viewDidLoad()
+
+      let decoder = JSONDecoder()
+      do {
+         let info = try decoder.decode(Book.self, from: jsonData!)
+         print("Title: \(info.title)")
+         print("Author: \(info.author)")
+         print("Publisher: \(info.publisher.name)")
+      } catch {
+         print("Error: \(error)")
+      }
+   }
+}

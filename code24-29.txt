@@ -1,0 +1,12 @@
+@objc func animateView(sender: UITapGestureRecognizer) {
+   let layer = animationView.layer
+   var matrix = CATransform3DIdentity
+   matrix = CATransform3DTranslate(matrix, 0.0, 200.0, 0.0)
+        
+   let timing = UISpringTimingParameters(dampingRatio: 0.3, initialVelocity: CGVector(dx: 10.0, dy: 0.0))
+   let animator = UIViewPropertyAnimator(duration: 2.0, timingParameters: timing)
+   animator.addAnimations({
+      layer.transform = matrix
+   })
+   animator.startAnimation()
+}

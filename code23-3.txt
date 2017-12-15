@@ -1,0 +1,17 @@
+import UIKit
+
+class MyDocument: UIDocument {
+   var fileContent: String = ""
+
+   override func contents(forType typeName: String) throws -> Any {
+      let data = NSKeyedArchiver.archivedData(withRootObject: fileContent)
+      return data
+   }
+   override func load(fromContents contents: Any, ofType typeName: String?) throws {
+      if let text = contents as? Data {
+         if text.count > 0 {
+            fileContent = NSKeyedUnarchiver.unarchiveObject(with: text) as! String
+         }
+      }
+   }
+}

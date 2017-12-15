@@ -1,0 +1,54 @@
+import UIKit
+
+class ViewController: UIViewController {
+   var mylabel: UILabel!
+   var constraintLeft: NSLayoutConstraint!
+   var constraintRight: NSLayoutConstraint!
+var constraintCenter: NSLayoutConstraint!
+
+   override func viewDidLoad() {
+      super.viewDidLoad()
+
+      mylabel = UILabel(frame: CGRect.zero)
+      mylabel.text = "Center"
+      mylabel.translatesAutoresizingMaskIntoConstraints = false
+      view.addSubview(mylabel)
+
+      let constraintLabel = NSLayoutConstraint(item: mylabel, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 50)
+      view.addConstraint(constraintLabel)
+
+      constraintLeft = NSLayoutConstraint(item: mylabel, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1, constant: 20)
+      constraintRight = NSLayoutConstraint(item: mylabel, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1, constant: -20)
+      constraintCenter = NSLayoutConstraint(item: mylabel, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
+      view.addConstraint(constraintCenter)
+
+      let button = UIButton(type: .system)
+      button.setTitle("Move Label", for: .normal)
+      button.translatesAutoresizingMaskIntoConstraints = false
+      button.addTarget(self, action: #selector(moveLabel), for: .touchUpInside)
+      view.addSubview(button)
+
+      let constraintButton1 = NSLayoutConstraint(item: button, attribute: .top, relatedBy: .equal, toItem: mylabel, attribute: .bottom, multiplier: 1, constant: 30)
+      let constraintButton2 = NSLayoutConstraint(item: button, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
+      view.addConstraints([constraintButton1, constraintButton2])
+   }
+   @objc func moveLabel() {
+      let text = mylabel.text!
+      switch text {
+         case "Right":
+         view.removeConstraint(constraintRight)
+         view.addConstraint(constraintLeft)
+         mylabel.text = "Left"
+      case "Left":
+         view.removeConstraint(constraintLeft)
+         view.addConstraint(constraintCenter)
+         mylabel.text = "Center"
+      case "Center":
+         view.removeConstraint(constraintCenter)
+         view.addConstraint(constraintRight)
+         mylabel.text = "Right"
+      default:
+         break
+      }
+   }
+}

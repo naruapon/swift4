@@ -1,0 +1,10 @@
+func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+   var controller: SinglePopoverViewController!
+   if style == .fullScreen || style == .formSheet {
+      if let story = storyboard {
+         controller = story.instantiateViewController(withIdentifier: "singlePopover") as! SinglePopoverViewController
+         controller.selected = selected
+      }
+   }
+   return controller
+}

@@ -1,0 +1,8 @@
+func showAlert() {
+   let alert = UIAlertController(title: "Error", message: "Insert the name in the field", preferredStyle: .alert)
+   let action = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+      self.nameText.backgroundColor = UIColor(red: 255.0/255.0, green: 230.0/255.0, blue: 230.0/255.0, alpha: 1.0)
+   })
+   alert.addAction(action)
+   present(alert, animated: true, completion: nil)
+}

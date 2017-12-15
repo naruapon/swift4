@@ -1,0 +1,11 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var myToolbar: UIToolbar!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()    
+      myToolbar.setBackgroundImage(UIImage(named: "backgroundbar"), forToolbarPosition: .bottom, barMetrics: .default)
+      myToolbar.tintColor = UIColor.white
+   }
+}

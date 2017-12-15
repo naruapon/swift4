@@ -1,0 +1,36 @@
+import UIKit
+
+class DetailViewController: UIViewController {
+   @IBOutlet weak var bookCover: UIImageView!
+   @IBOutlet weak var bookTitle: UILabel!
+   @IBOutlet weak var bookAuthor: UILabel!
+   var selected: Int!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let button = splitViewController?.displayModeButtonItem
+      navigationItem.leftBarButtonItem = button
+      navigationItem.leftItemsSupplementBackButton = true
+      if selected != nil {
+         let file = AppData.items[selected]
+         bookCover.image = UIImage(named: file)
+         if let data = AppData.itemsData[file] {
+            bookTitle.text = data[0]
+            bookAuthor.text = data[1]
+         }
+      }
+   }
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      if segue.identifier == "showPicture" {
+         let controller = segue.destination as! PictureViewController
+         controller.selected = selected
+      }
+   }
+   @IBAction func showHelp(_ sender: UIBarButtonItem) {
+      if let story = storyboard {
+         let controllerHelp = story.instantiateViewController(withIdentifier: "helpView") as! SingleViewController
+         controllerHelp.modalPresentationStyle = .pageSheet
+         present(controllerHelp, animated: true, completion: nil)
+      }
+   }
+}

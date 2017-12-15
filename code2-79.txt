@@ -1,0 +1,7 @@
+var fruits = ["Banana", "Orange", "Apple"]
+var message = "My fruits:"
+
+for myfruit in fruits {
+   message += " " + myfruit
+}
+message  // "My fruits: Banana Orange Apple"

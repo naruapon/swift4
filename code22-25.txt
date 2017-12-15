@@ -1,0 +1,25 @@
+override func numberOfSections(in tableView: UITableView) -> Int {
+   if let sections = fetchedController.sections {
+      return sections.count
+   }
+   return 1
+}
+override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+   if let sections = fetchedController.sections {
+      let sectionInfo = sections[section]
+      return sectionInfo.name
+   }
+   return nil
+}
+func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+   switch type {
+      case .insert:
+         let index = IndexSet(integer: sectionIndex)
+         tableView.insertSections(index, with: .fade)
+      case .delete:
+         let index = IndexSet(integer: sectionIndex)
+         tableView.deleteSections(index, with: .fade)
+      default:
+         break
+   }
+}

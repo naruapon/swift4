@@ -1,0 +1,4 @@
+import Foundation
+
+var age = 44
+var mytext = String(format: "My age is %d", arguments: [age])

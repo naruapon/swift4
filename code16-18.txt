@@ -1,0 +1,7 @@
+import UIKit
+
+class iPhoneViewController: UIViewController {
+   @IBAction func closeHelp(_ sender: UIButton) {
+      dismiss(animated: true, completion: nil)
+   }
+}

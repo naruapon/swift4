@@ -1,0 +1,31 @@
+import UIKit
+import AVFoundation
+
+class ViewController: UIViewController {
+   @IBOutlet weak var videoView: UIView!
+   @IBOutlet weak var controlBar: UIView!
+   @IBOutlet weak var playButton: UIButton!
+   @IBOutlet weak var progressBar: UIProgressView!
+   var playerItem: AVPlayerItem!
+   var player: AVPlayer!
+   var playerLayer: AVPlayerLayer!
+   var ready = false
+   var playing = false
+
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      playButton.isEnabled = false
+      controlBar.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.25)
+      let bundle = Bundle.main
+      let videoURL = bundle.url(forResource: "trailer", withExtension: "mp4")
+        
+      let asset = AVAsset(url: videoURL!)
+      playerItem = AVPlayerItem(asset: asset)
+      playerItem.addObserver(self, forKeyPath: "status", options: [], context: nil)
+      player = AVPlayer(playerItem: playerItem)
+      playerLayer = AVPlayerLayer(player: player)
+      playerLayer.frame = view.bounds
+      let layer = videoView.layer
+      layer.addSublayer(playerLayer)
+   }
+}

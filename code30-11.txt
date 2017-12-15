@@ -1,0 +1,3 @@
+func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+   mapView.setCenter(userLocation.coordinate, animated: true)
+}

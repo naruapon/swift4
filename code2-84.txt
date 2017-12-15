@@ -1,0 +1,10 @@
+let mynumbers = [2, 4, 6, 8]
+
+var total = 0
+for number in mynumbers {
+   if number == 6 {
+      break
+   }
+   total += number
+}
+var message = "The total is: \(total)"  // "The total is: 6"

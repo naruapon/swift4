@@ -1,0 +1,20 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var counterLabel: UILabel!
+   var control: MyControl!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      control = MyControl()
+   }
+   @IBAction func updateValue(_ sender: UIStepper) {
+      let current = Int(sender.value)
+      if current % 10 == 0 {
+         control.setValue(true, forKey: "round")
+      } else {
+         control.setValue(false, forKey: "round")
+      }
+      counterLabel.text = String(current)
+   }
+}

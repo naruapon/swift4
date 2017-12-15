@@ -1,0 +1,21 @@
+import UIKit
+import MapKit
+
+class ViewController: UIViewController, MKMapViewDelegate {
+   @IBOutlet weak var mapView: MKMapView!
+   var manager: CLLocationManager!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      manager = CLLocationManager()
+      manager.requestWhenInUseAuthorization()
+        
+      mapView.showsUserLocation = true
+      mapView.delegate = self
+   }
+   @IBAction func showHome(_ sender: UIBarButtonItem) {
+      let location = mapView.userLocation
+      let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 2000, 2000)
+      mapView.setRegion(region, animated: true)
+   }
+}

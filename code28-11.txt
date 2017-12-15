@@ -1,0 +1,9 @@
+@IBAction func addContact(_ sender: UIBarButtonItem) {
+   let contact = CNMutableContact()
+   let controller = CNContactViewController(forNewContact: contact)
+   controller.delegate = self
+   navigationController?.pushViewController(controller, animated: true)
+}
+func contactViewController(_ viewController: CNContactViewController, didCompleteWith contact: CNContact?) {
+   navigationController?.popViewController(animated: true)
+}

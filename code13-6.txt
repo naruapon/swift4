@@ -1,0 +1,40 @@
+import UIKit
+
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+   @IBOutlet weak var pickerPictures: UIPickerView!
+   var picturesList: [String]!
+   var ratings: [Int]!
+   var selectedPicture: Int!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      pickerPictures.delegate = self
+      pickerPictures.dataSource = self
+        
+      picturesList = ["Husky", "Door"]
+      ratings = [0, 0]
+      selectedPicture = 0
+   }
+   func numberOfComponents(in pickerView: UIPickerView) -> Int {
+      return 1
+   }
+   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+      return picturesList.count
+   }
+   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+      return picturesList[row]
+   }
+   @IBAction func getPicture(_ sender: UIButton) {
+      selectedPicture = pickerPictures.selectedRow(inComponent: 0)
+      performSegue(withIdentifier: "showPicture", sender: self)
+   }
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      let controller = segue.destination as! SecondViewController
+      controller.rating = ratings[selectedPicture]
+      controller.picture = picturesList[selectedPicture]
+   }
+   @IBAction func goBack(_ segue: UIStoryboardSegue) {
+      let controller = segue.source as! SecondViewController
+      ratings[selectedPicture] = controller.rating
+   }
+}

@@ -1,0 +1,24 @@
+import UIKit
+import CoreMotion
+
+class ViewController: UIViewController {
+   @IBOutlet weak var stepsLabel: UILabel!
+   var pedometer: CMPedometer!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      if CMPedometer.isStepCountingAvailable() {
+         pedometer = CMPedometer()
+         pedometer.startUpdates(from: Date(), withHandler: { (data, error) in
+            if let values = data {
+               OperationQueue.main.addOperation({
+                  self.stepsLabel.text = "\(values.numberOfSteps)"
+               })
+            }
+         })
+      } else {
+         print("The system can't count your steps")
+      }
+   }
+}

@@ -1,0 +1,117 @@
+import UIKit
+import UserNotifications
+import CloudKit
+import CoreData
+
+class BooksViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+   var database: CKDatabase!
+   var context: NSManagedObjectContext!
+   var fetchedController: NSFetchedResultsController<Books>!
+
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let container = CKContainer.default()
+      database = container.privateCloudDatabase
+
+      let center = NotificationCenter.default
+      let name = Notification.Name("Update Interface")
+      center.addObserver(self, selector: #selector(updateInterface(notification:)), name: name, object: nil)
+    
+      let app = UIApplication.shared
+      let appDelegate = app.delegate as! AppDelegate
+      context = appDelegate.context
+        
+      let request: NSFetchRequest<Books> = Books.fetchRequest()
+      let sort = NSSortDescriptor(key: "title", ascending: true)
+      request.sortDescriptors = [sort]
+      fetchedController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+      fetchedController.delegate = self
+   }
+   override func viewWillAppear(_ animated: Bool) {
+      do {
+         try fetchedController.performFetch()
+         tableView.reloadData()
+      } catch {
+         print("Error")
+      }
+   }
+   @objc func updateInterface(notification: Notification) {
+      let main = OperationQueue.main
+      main.addOperation {
+         self.tableView.reloadData()
+      }
+   }
+   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      if let sections = fetchedController.sections {
+         let sectionInfo = sections[section]
+         return sectionInfo.numberOfObjects
+      }
+      return 0
+   }
+   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      let cell = tableView.dequeueReusableCell(withIdentifier: "booksCell", for: indexPath)
+      let book = fetchedController.object(at: indexPath)
+      cell.textLabel?.text = book.title
+      return cell
+   }
+   func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+      switch type {
+         case .insert:
+            if let path = newIndexPath {
+               tableView.insertRows(at: [path], with: .fade)
+            }
+         default:
+            break
+      }
+   }
+   @IBAction func addBook(_ sender: UIBarButtonItem) {
+      let alert = UIAlertController(title: "Insert Book", message: nil, preferredStyle: .alert)
+      let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+      alert.addAction(cancel)
+      let action = UIAlertAction(title: "Save", style: .default, handler: { (action) in
+         if let fields = alert.textFields {
+            let title = fields[0].text!
+            self.insertBook(title: title)
+         }
+      })
+      alert.addAction(action)
+      alert.addTextField(configurationHandler: nil)
+      present(alert, animated: true, completion: nil)
+   }
+   func insertBook(title: String) {
+      let text = title.trimmingCharacters(in: .whitespaces)
+      if text != "" {
+         let textID = "id-\(text)"
+         let request: NSFetchRequest<Books> = Books.fetchRequest()
+         request.predicate = NSPredicate(format: "recordID = %@", textID)
+         do {
+            let result = try self.context.fetch(request)
+            if result.isEmpty {
+               saveRecord(id: textID, title: text)
+            }
+         } catch {
+            print("Error")
+         }
+      }
+   }
+   func saveRecord(id: String, title: String) {
+      let newBook = Books(context: context)
+      newBook.recordID = id
+      newBook.title = title
+      do {
+         try context.save()
+      } catch {
+         print("Error")
+      }
+      let zone = CKRecordZone(zoneName: "listBooks")
+      let recordID = CKRecordID(recordName: id, zoneID: zone.zoneID)
+      let record = CKRecord(recordType: "Books", recordID: recordID)
+      record.setObject(title as NSString, forKey: "title")
+      database.save(record, completionHandler: { (recordSaved, error) in
+         if error != nil {
+            print("Error: not saved")
+         }
+      })
+      tableView.reloadData()
+   }
+}

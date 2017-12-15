@@ -1,0 +1,28 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var mainScroll: UIScrollView!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let images = ["spot1", "spot2", "spot3"]
+      mainScroll.isPagingEnabled = true
+        
+      view.setNeedsLayout()
+      view.layoutIfNeeded()
+      let scrollWidth = mainScroll.frame.size.width
+      let scrollHeight = mainScroll.frame.size.height
+        
+      var posX: CGFloat = 0
+      for img in images {
+         let imgView = UIImageView(frame: CGRect(x: posX, y: 0, width: scrollWidth, height: scrollHeight))
+         imgView.image = UIImage(named: img)
+         imgView.contentMode = .scaleAspectFill
+         imgView.clipsToBounds = true
+            
+         mainScroll.addSubview(imgView)
+         mainScroll.contentSize = CGSize(width: scrollWidth * CGFloat(images.count), height: scrollHeight)
+         posX = posX + scrollWidth
+      }
+   }
+}

@@ -1,0 +1,11 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var surface: DrawingView!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let gesture = UITapGestureRecognizer(target: surface, action: #selector(surface.addCircle(sender:)))
+      surface.addGestureRecognizer(gesture)
+   }
+}

@@ -1,0 +1,23 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var dateLabel: UILabel!
+   @IBOutlet weak var daysLabel: UILabel!
+   @IBOutlet weak var priceLabel: UILabel!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      let today = Date()
+      let date = DateFormatter.localizedString(from: today, dateStyle: .medium, timeStyle: .none)
+      dateLabel.text = date
+        
+      let calendar = Calendar.current
+      let components = calendar.dateComponents([.day], from: today)
+      let days = DateComponentsFormatter.localizedString(from: components, unitsStyle: .full)
+      daysLabel.text = days
+        
+      let price = NumberFormatter.localizedString(from: 120.59, number: .currency)
+      priceLabel.text = price
+   }
+}

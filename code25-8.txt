@@ -1,0 +1,16 @@
+import UIKit
+import AVFoundation
+import AVKit
+
+class ViewController: UIViewController {
+   @IBAction func playVideo(_ sender: UIButton) {
+      let bundle = Bundle.main
+      let videoURL = bundle.url(forResource: "trailer", withExtension: "mp4")
+      let player = AVPlayer(url: videoURL!)
+      let controller = AVPlayerViewController()
+      controller.player = player
+      present(controller, animated: true, completion: {
+         player.play()
+      })
+   }
+}

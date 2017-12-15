@@ -1,0 +1,10 @@
+import UIKit
+
+class ViewController: UIViewController {
+   var ratingHusky: Int = 0
+    
+   @IBAction func goBack(_ segue: UIStoryboardSegue) {
+      let controller = segue.source as! SecondViewController
+      ratingHusky = controller.rating
+   }
+}

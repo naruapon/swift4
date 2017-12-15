@@ -1,0 +1,13 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var mytitle: UILabel!
+    
+   @IBAction func selectColor(_ sender: UISegmentedControl) {
+      if sender.selectedSegmentIndex == 0 {
+         mytitle.textColor = .black
+      } else if sender.selectedSegmentIndex == 1 {
+         mytitle.textColor = .red
+      }
+   }
+}

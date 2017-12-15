@@ -1,0 +1,12 @@
+func totalelements(list: [Int]) -> (Int, Int) {
+   var counter = 0
+   var total = 0
+   for number in list {
+      total = total + number
+      counter += 1
+   }
+   return (counter, total)
+}
+var numbers = [1, 2, 3, 4, 5]
+var (amount, result) = totalelements(list: numbers)
+var message = "Addition of \(amount) elements = \(result)"

@@ -1,0 +1,13 @@
+class Salary {
+   var money = 0.0
+}
+class Employee {
+   var name = "Undefined"
+   var age = 0
+   var salary: Salary?
+}
+let employee1 = Employee()
+
+employee1.name = "George"
+employee1.age = 34
+employee1.salary?.money = 55000  // returns nil

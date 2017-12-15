@@ -1,0 +1,15 @@
+import UIKit
+
+class TabBarController: UITabBarController, UITabBarControllerDelegate {
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      delegate = self
+   }
+   func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+      let list = viewControllers!
+      let controller = list[1]
+      if viewController === controller {
+         print("It's Settings")
+      }
+   }
+}

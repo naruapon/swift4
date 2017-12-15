@@ -1,0 +1,13 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var titleLabel: UILabel!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+
+      let localizedText = NSLocalizedString("%d hours and %d minutes", comment: "Time the app was running")
+      let text = String.localizedStringWithFormat(localizedText, 2, 35)
+      titleLabel.text = text
+   }
+}

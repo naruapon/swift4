@@ -1,0 +1,6 @@
+func loadPhotos() {
+   let options = PHFetchOptions()
+   let sort = NSSortDescriptor(key: "creationDate", ascending: false)
+   options.sortDescriptors = [sort]
+   photosList = PHAsset.fetchAssets(with: .video, options: options)
+}

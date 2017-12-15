@@ -1,0 +1,14 @@
+import Foundation
+
+var string = "Orange"
+var search = "Apple"
+
+var result = string.compare(search)
+switch result {
+   case .orderedSame:
+      print("String and Search are equal")
+   case .orderedDescending:
+      print("String follows Search")
+   case .orderedAscending:
+      print("String precedes Search")
+}

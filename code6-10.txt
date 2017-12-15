@@ -1,0 +1,9 @@
+override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+   super.viewWillTransition(to: size, with: coordinator)
+   coordinator.animate(alongsideTransition: nil, completion: {(context: UIViewControllerTransitionCoordinatorContext!) in
+      let controller = context.viewController(forKey: .from) as! ViewController
+      let display = controller.display!
+      let height = display.frame.size.height
+      display.font = UIFont.systemFont(ofSize: height)
+   })
+}

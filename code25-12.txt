@@ -1,0 +1,42 @@
+@IBAction func recordAudio(_ sender: UIButton) {
+   if audioRecorder != nil {
+      if audioRecorder.isRecording {
+         audioRecorder.stop()
+         playButton.isEnabled = true
+         recordButton.setTitle("Record", for: .normal)
+      } else {
+         audioRecorder.record()
+         playButton.isEnabled = false
+         recordButton.setTitle("Stop", for: .normal)
+      }
+   }
+}
+@IBAction func playAudio(_ sender: UIButton) {
+   if let player = audioPlayer {
+      if player.isPlaying {
+         playButton.setTitle("Play", for: .normal)
+         recordButton.isEnabled = true
+         player.stop()
+         player.currentTime = 0
+      } else {
+         startPlayer()
+      }
+   } else {
+      startPlayer()
+   }
+}
+func startPlayer() {
+   if let audioURL = audioRecorder?.url {
+      audioPlayer = try? AVAudioPlayer(contentsOf: audioURL)
+      if audioPlayer != nil {
+         playButton.setTitle("Stop", for: .normal)
+         recordButton.isEnabled = false
+         audioPlayer.delegate = self
+         audioPlayer.play()
+      }
+   }
+}
+func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+   playButton.setTitle("Play", for: .normal)
+   recordButton.isEnabled = true
+}

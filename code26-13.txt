@@ -1,0 +1,17 @@
+override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+   super.viewWillTransition(to: size, with: coordinator)
+   previewLayer.frame.size = size
+   if let connection = previewLayer.connection {
+      let device = UIDevice.current
+      switch device.orientation {
+         case .portrait:
+            connection.videoOrientation = .portrait
+         case .landscapeRight:
+            connection.videoOrientation = .landscapeLeft
+         case .landscapeLeft:
+            connection.videoOrientation = .landscapeRight
+         default:
+            connection.videoOrientation = .portrait
+      }
+   }
+}

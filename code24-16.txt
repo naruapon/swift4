@@ -1,0 +1,13 @@
+import UIKit
+
+class DrawingView: UIView {
+   override func draw(_ rect: CGRect) {
+      if let context = UIGraphicsGetCurrentContext() {
+         context.translateBy(x: 100, y: 100)
+         let degrees = CGFloat(45 * Float.pi / 180)
+         let matrix = CGAffineTransform(rotationAngle: degrees)
+         context.concatenate(matrix)
+         context.stroke(CGRect(x: -25, y: -10, width: 50, height: 20))
+      }
+   }
+}

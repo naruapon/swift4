@@ -1,0 +1,32 @@
+override func viewWillAppear(_ animated: Bool) {
+   super.viewWillAppear(animated)
+        
+   let predicate = NSPredicate(format: "TRUEPREDICATE")
+   let query = CKQuery(recordType: "Countries", predicate: predicate)
+        
+   let container = CKContainer.default()
+   let database = container.privateCloudDatabase
+   database.perform(query, inZoneWith: nil, completionHandler: { (records, error) in
+      if error != nil {
+         print("Error: records not found")
+      } else if let list = records {
+         let main = OperationQueue.main
+         main.addOperation({
+            self.listCountries = []
+            for record in list {
+               let country = record["name"] as! String
+               self.listCountries.append((country, record.recordID))
+            }
+            self.tableView.reloadData()
+         })
+      }
+   })
+}
+override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+   return listCountries.count
+}
+override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+   let cell = tableView.dequeueReusableCell(withIdentifier: "countriesCell", for: indexPath)
+   cell.textLabel?.text = listCountries[indexPath.row].0
+   return cell
+}

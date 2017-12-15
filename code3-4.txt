@@ -1,0 +1,6 @@
+func duplicate(number: Int) {
+   let total = number * 2
+   let message = "Result: \(total)"
+}
+duplicate(number: 5)  // "Result: 10"
+duplicate(number: 25)  // "Result: 50"

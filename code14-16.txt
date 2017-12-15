@@ -1,0 +1,17 @@
+import UIKit
+
+class AddItemViewController: UIViewController {
+   @IBOutlet weak var newItem: UITextField!
+    
+   @IBAction func saveItem(_ sender: UIButton) {
+      var text = newItem.text!
+      text = text.trimmingCharacters(in: .whitespaces)
+      if text != "" {
+         let lower = text.lowercased()
+         let final = lower.capitalized
+         AppData.items.append(final)
+         AppData.details[final] = ["noimage", "Not Defined"]
+         navigationController?.popViewController(animated: true)
+      }
+   }
+}

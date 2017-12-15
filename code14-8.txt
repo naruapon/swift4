@@ -1,0 +1,45 @@
+import UIKit
+
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+   @IBOutlet weak var myTable: UITableView!
+   var indexLetters: [String]!
+   var categories: [String]!
+   var items: [[String]]!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      indexLetters = ["#", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+      categories = ["B", "C", "D", "G", "J", "L", "M", "O", "P", "T", "Y"]
+      items = [["Bagels", "Brownies", "Butter"], ["Cheese", "Coffee", "Cookies"], ["Donuts"], ["Granola"], ["Juice"], ["Lemonade", "Lettuce"], ["Milk"], ["Oatmeal", "Onions"], ["Potatoes"], ["Tea", "Tomatoes"], ["Yogurt"]]
+      myTable.delegate = self
+      myTable.dataSource = self
+      myTable.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+   }
+   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      let cell = myTable.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+      let row = indexPath.row
+      let section = indexPath.section
+      cell.textLabel?.text = items[section][row]
+      return cell
+   }
+   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      return items[section].count
+   }
+   func numberOfSections(in tableView: UITableView) -> Int {
+      return categories.count
+   }
+   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+      let title = categories[section]
+      return title
+   }
+   func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+      return indexLetters
+   }
+   func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+      if let index = categories.index(of: title) {
+         return index
+      }
+      return 0
+   }
+}

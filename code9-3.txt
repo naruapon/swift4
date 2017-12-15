@@ -1,0 +1,10 @@
+override func viewDidLoad() {
+   super.viewDidLoad()
+   pickerYears.delegate = self
+   pickerYears.dataSource = self
+   years = ["1944", "1945", "1946", "1947", "1948", "1949", "1950"]
+        
+   if let index = years.index(of: "1945") {
+      pickerYears.selectRow(index, inComponent: 0, animated: false)
+   }
+}

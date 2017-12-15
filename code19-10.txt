@@ -1,0 +1,26 @@
+import UIKit
+
+class ViewController: UIViewController {
+   var device = UIDevice.current
+
+   override func viewWillAppear(_ animated: Bool) {
+      device.beginGeneratingDeviceOrientationNotifications()
+
+      let center = NotificationCenter.default
+      center.addObserver(self, selector: #selector(changeOrientation(notification:)), name: Notification.Name.UIDeviceOrientationDidChange, object: nil)
+   }
+   override func viewDidDisappear(_ animated: Bool) {
+      device.endGeneratingDeviceOrientationNotifications()
+   }
+   @objc func changeOrientation(notification: Notification) {
+      let orientation = device.orientation
+      switch orientation {
+         case .portrait, .portraitUpsideDown:
+            print("Portrait")
+         case .landscapeLeft, .landscapeRight:
+            print("Landscape")
+         default:
+            print("Undefined")
+      }
+   }
+}

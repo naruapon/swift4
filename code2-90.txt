@@ -1,0 +1,17 @@
+enum Number {
+   case one
+   case two
+   case three
+}
+var mynumber = Number.two
+var message = ""
+
+switch mynumber {
+   case .one:
+      message = "The number is 1"
+   case .two:
+      message = "The number is 2"
+   case .three:
+      message = "The number is 3"
+}
+message  // "The number is 2"

@@ -1,0 +1,20 @@
+import UIKit
+
+class ViewController: UIViewController, UITextViewDelegate {
+   @IBOutlet weak var message: UITextView!
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      message.delegate = self
+   }
+   @IBAction func selection(_ sender: UIButton) {
+      let attributedText = message.textStorage
+      attributedText.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.red, range: message.selectedRange)
+   }
+   func textViewDidChange(_ textView: UITextView) {
+      let text = textView.text!
+      if let range = text.range(of: "John", options: .caseInsensitive) {
+         let attributedText = textView.textStorage
+         attributedText.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.blue, range: NSRange(range, in: text))
+      }
+   }
+}

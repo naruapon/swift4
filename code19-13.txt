@@ -1,0 +1,24 @@
+import UIKit
+import UserNotifications
+
+class ViewController: UIViewController {
+   @IBOutlet weak var messageField: UITextField!
+    
+   @IBAction func saveNotification(_ sender: UIButton) {
+      let notificationcenter = UNUserNotificationCenter.current()
+      let content = UNMutableNotificationContent()
+      content.title = "Reminder"
+      content.body = messageField.text!
+      content.sound = UNNotificationSound(named: "alarm.mp3")
+        
+      let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 30, repeats: false)
+        
+      let request = UNNotificationRequest(identifier: "reminder", content: content, trigger: trigger)
+      notificationcenter.add(request, withCompletionHandler: { (error) in
+         let main = OperationQueue.main
+         main.addOperation({
+            self.messageField.text = ""
+         })
+      })
+   }
+}

@@ -1,0 +1,5 @@
+@IBAction func saveDocument(_ sender: UIBarButtonItem) {
+   document.fileContent = mycontent.text
+   document.save(to: iCloudURL, for: .forOverwriting, completionHandler: nil)
+   navigationController?.popViewController(animated: true)
+}

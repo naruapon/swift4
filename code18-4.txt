@@ -1,0 +1,21 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var totalLabel: UILabel!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let queue = DispatchQueue(label: "myqueue")
+      queue.async(execute: {
+         var total: Double = 1
+         for f in 1..<100 {
+            total = log(total + Double(f))
+         }
+         let main = DispatchQueue.main
+         main.sync(execute: {
+            self.totalLabel.text = "Total: \(total)"
+         })
+      })
+      print("Printed in the Main Queue")
+   }
+}

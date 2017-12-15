@@ -1,0 +1,42 @@
+import UIKit
+
+class EditionViewController: UIViewController {
+   @IBOutlet weak var mycontent: UITextView!
+   var document: MyDocument!
+   var iCloudURL: URL!
+   var metaData: NSMetadataQuery!
+   var selected: String!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      let center = NotificationCenter.default
+      center.addObserver(self, selector: #selector(metadataReceived(notification:)), name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil)
+      metaData = NSMetadataQuery()
+      metaData.predicate = NSPredicate(format: "%K == %@", NSMetadataItemFSNameKey, selected)
+      metaData.searchScopes = [NSMetadataQueryUbiquitousDocumentsScope]
+      metaData.start()
+   }
+   @objc func metadataReceived(notification: NSNotification) {
+      metaData.stop()
+      let center = NotificationCenter.default
+      center.removeObserver(self, name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil)
+        
+      if metaData.resultCount > 0 {
+         let file = metaData.result(at: 0) as! NSMetadataItem
+         let fileURL = file.value(forAttribute: NSMetadataItemURLKey) as! URL
+         document = MyDocument(fileURL: fileURL)
+         document.open(completionHandler: { (success: Bool) in
+            if success {
+               self.mycontent.text = self.document.fileContent
+               self.iCloudURL = fileURL
+            }
+         })
+      }
+   }
+   @IBAction func saveDocument(_ sender: UIBarButtonItem) {
+      document.fileContent = mycontent.text
+      document.save(to: iCloudURL, for: .forOverwriting, completionHandler: nil)
+      navigationController?.popViewController(animated: true)
+   }
+}

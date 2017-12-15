@@ -1,0 +1,71 @@
+func checkUpdates() {
+   let operation = CKFetchDatabaseChangesOperation(previousServerChangeToken: changeToken)
+   var zonesIDs: [CKRecordZoneID] = []
+   operation.recordZoneWithIDChangedBlock = { (zoneID) in
+	   zonesIDs.append(zoneID)
+	}
+   operation.changeTokenUpdatedBlock = { (token) in
+      self.changeToken = token
+   }
+   operation.fetchDatabaseChangesCompletionBlock = { (token, more, error) in
+      if error == nil && !zonesIDs.isEmpty {
+         self.changeToken = token
+
+         let options = CKFetchRecordZoneChangesOptions()
+         options.previousServerChangeToken = self.fetchChangeToken
+         let fetchOperation = CKFetchRecordZoneChangesOperation(recordZoneIDs: zonesIDs, optionsByRecordZoneID: [zonesIDs[0]: options])
+
+         fetchOperation.recordChangedBlock = { (record) in
+            let name = record.recordID.recordName
+            let title = record["title"] as! String
+            let request: NSFetchRequest<Books> = Books.fetchRequest()
+            request.predicate = NSPredicate(format: "recordID = %@", name)
+            do {
+               let result = try self.context.fetch(request)
+               if result.isEmpty {
+                  let book = Books(context: self.context)
+                  book.recordID = name
+                  book.title = title
+                  try self.context.save()
+               } else {
+                  let book = result[0]
+                  book.title = title
+                  try self.context.save()
+               }
+            } catch {
+               print("Error")
+            }
+         }
+         fetchOperation.recordWithIDWasDeletedBlock = { (recordID, recordType) in
+            let name = recordID.recordName
+            let request: NSFetchRequest<Books> = Books.fetchRequest()
+            request.predicate = NSPredicate(format: "recordID = %@", name)
+            do {
+               let result = try self.context.fetch(request)
+               if !result.isEmpty {
+                  let book = result[0]
+                  self.context.delete(book)
+                  try self.context.save()
+               }
+            } catch {
+               print("Error")
+            }
+         }
+         fetchOperation.recordZoneChangeTokensUpdatedBlock = { (zoneID, token, data) in
+            self.fetchChangeToken = token
+         }
+         fetchOperation.recordZoneFetchCompletionBlock = { (zoneID, token, data, more, error) in
+            self.fetchChangeToken = token
+         }
+         fetchOperation.fetchRecordZoneChangesCompletionBlock = { (error) in
+            if error == nil {
+               let center = NotificationCenter.default
+               let name = Notification.Name("Update Interface")
+               center.post(name: name, object: nil, userInfo: nil)
+            }
+         }
+         self.database.add(fetchOperation)
+      }
+   }
+   database.add(operation)
+}

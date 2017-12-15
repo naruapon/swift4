@@ -1,0 +1,5 @@
+struct Book: Codable {
+   var title: String
+   var author: String
+   var edition: Int
+}

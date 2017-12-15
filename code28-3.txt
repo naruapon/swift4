@@ -1,0 +1,23 @@
+import UIKit
+import Contacts
+
+class DetailsViewController: UIViewController {
+   @IBOutlet weak var nameLabel: UILabel!
+   @IBOutlet weak var addressLabel: UILabel!
+   var contactID: String!
+   var contact: CNContact!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      if contactID != nil {
+         let store = CNContactStore()
+         do {
+            contact = try store.unifiedContact(withIdentifier: contactID, keysToFetch: [CNContactGivenNameKey as CNKeyDescriptor, CNContactFamilyNameKey as CNKeyDescriptor, CNContactPostalAddressesKey as CNKeyDescriptor, CNContactNoteKey as CNKeyDescriptor])
+            self.nameLabel.text = "\(contact.givenName) \(contact.familyName)"
+         } catch {
+            print("Error")
+         }
+      }
+   }
+}

@@ -1,0 +1,7 @@
+@IBAction func editItems(_ sender: UIBarButtonItem) {
+   if myTable.isEditing {
+      myTable.setEditing(false, animated: true)
+   } else {
+      myTable.setEditing(true, animated: true)
+   }
+}

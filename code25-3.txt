@@ -1,0 +1,17 @@
+override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+   if keyPath == "status" {
+      if playerItem.status == .readyToPlay {
+         ready = true
+         playButton.isEnabled = true
+         playerItem.removeObserver(self, forKeyPath: "status")
+                
+         let mainQueue = DispatchQueue.main
+         let interval = CMTime(value: 1, timescale: 2)
+         player.addPeriodicTimeObserver(forInterval: interval, queue: mainQueue, using: { (time) in
+            let duration = self.playerItem.duration
+            let position = time.seconds / duration.seconds
+            self.progressBar.progress = Float(position)
+         })
+      }
+   }
+}

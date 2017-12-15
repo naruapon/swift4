@@ -1,0 +1,34 @@
+import UIKit
+
+class ViewController: UIViewController, UIScrollViewDelegate {
+   @IBOutlet weak var scroll: UIScrollView!
+   var image: UIImageView!
+   var zooming = false
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      scroll.delegate = self
+      scroll.minimumZoomScale = 1.0
+      scroll.maximumZoomScale = 4.0
+        
+      image = UIImageView(image: UIImage(named: "doll"))
+      scroll.contentSize = CGSize(width: image.frame.size.width, height: image.frame.size.height)
+      scroll.addSubview(image)
+        
+      let gesture = UITapGestureRecognizer(target: self, action: #selector(zoomPicture))
+      scroll.addGestureRecognizer(gesture)
+   }
+   func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+      return image
+   }
+   @objc func zoomPicture(sender: UITapGestureRecognizer) {
+      if !zooming {
+         let position = sender.location(in: scroll)
+         scroll.zoom(to: CGRect(x: position.x, y: position.y, width: 1, height: 1), animated: true)
+         zooming = true
+      } else {
+         scroll.setZoomScale(1.0, animated: true)
+         zooming = false
+      }
+   }
+}

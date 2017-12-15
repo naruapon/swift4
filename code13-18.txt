@@ -1,0 +1,16 @@
+import UIKit
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+   var window: UIWindow?
+   var picturesList: [String]!
+   var ratings: [Int]!
+   var selectedPicture: Int!
+
+   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+      picturesList = ["Husky", "Door"]
+      ratings = [0, 0]
+      selectedPicture = 0
+      return true
+   }
+}

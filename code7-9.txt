@@ -1,0 +1,26 @@
+import UIKit
+
+class ViewController: UIViewController, UITextFieldDelegate {
+   @IBOutlet weak var titleLabel: UILabel!
+   @IBOutlet weak var titleInput: UITextField!
+   @IBOutlet weak var subtitleInput: UITextField!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      titleInput.delegate = self
+      subtitleInput.delegate = self
+   }
+   @IBAction func changeTitle(_ sender: UIButton) {
+      if titleInput.text != "" && subtitleInput.text != "" {
+         titleLabel.text = titleInput.text! + " - " + subtitleInput.text!
+         titleInput.text = ""
+         subtitleInput.text = ""
+      }
+   }
+   func textFieldDidBeginEditing(_ textField: UITextField) {
+      textField.backgroundColor = UIColor.lightGray
+   }
+   func textFieldDidEndEditing(_ textField: UITextField) {
+      textField.backgroundColor = UIColor.white
+   }
+}

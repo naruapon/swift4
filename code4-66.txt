@@ -1,0 +1,10 @@
+import UIKit
+
+var progress = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+progress.frame.origin = CGPoint(x: 50, y: 50)
+progress.color = UIColor.red
+progress.startAnimating()
+
+if progress.isAnimating {
+   print("In Progress")
+}

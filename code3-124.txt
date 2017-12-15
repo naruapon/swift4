@@ -1,0 +1,14 @@
+func getFile(type: Int) -> Printer {
+   var data: Printer!
+   switch type {
+      case 1:
+         data = Employees(name: "John", age: 32)
+      case 2:
+         data = Offices(name: "Mail", employees: 2)
+      default:
+         break
+   }
+   return data
+}
+let file = getFile(type: 1)
+file.printdescription()  // "Description: John 32"

@@ -1,0 +1,17 @@
+import UIKit
+
+class TabBarController: UITabBarController, UITabBarControllerDelegate {
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      delegate = self
+   }
+   func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+      if let controller = viewController as? SecondViewController {
+         let control = controller.myproperty
+         if control != 0 {
+            return false
+         }
+      }
+      return true
+   }
+}

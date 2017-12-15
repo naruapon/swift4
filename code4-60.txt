@@ -1,0 +1,7 @@
+import UIKit
+
+var myfont = UIFont.systemFont(ofSize: 30)
+
+var label = UILabel(frame: CGRect(x: 20, y: 20, width: 150, height: 30))
+label.text = "This is a Beautiful Life"
+label.lineBreakMode = .byClipping

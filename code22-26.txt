@@ -1,0 +1,3 @@
+override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+   return fetchedController.sectionIndexTitles
+}

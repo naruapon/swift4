@@ -1,0 +1,14 @@
+override func viewWillAppear(_ animated: Bool) {
+   super.viewWillAppear(animated)
+
+   let request: NSFetchRequest<Books> = Books.fetchRequest()
+   let sort1 = NSSortDescriptor(key: "author.name", ascending: true)
+   let sort2 = NSSortDescriptor(key: "year", ascending: true)
+   request.sortDescriptors = [sort1, sort2]
+   do {
+      listOfBooks = try context.fetch(request)
+   } catch {
+      print("Error")
+   }
+   tableView.reloadData()
+}

@@ -1,0 +1,13 @@
+struct Item {
+   var quantity = 0.0
+   var name = "Not defined"
+   var price = 0.0
+}
+var purchase = Item()
+
+purchase.quantity = 2
+purchase.name = "Lamps"
+purchase.price = 10.50
+
+var total = purchase.quantity * purchase.price
+print("Invoice: \(purchase.quantity) \(purchase.name) $ \(total)")

@@ -1,0 +1,12 @@
+let fruits = ["Apple", "Orange", "Banana", "Apple"]
+
+let process = { () -> Int in
+   var counter = 0
+   for fruit in fruits {
+      if fruit == "Apple" {
+         counter += 1
+      }
+   }
+   return counter
+}()
+print("There are \(process) apples")  // "There are 2 apples"

@@ -1,0 +1,4 @@
+import UIKit
+
+let button = UIButton(type: .contactAdd)
+button.frame.origin = CGPoint(x: 50, y: 50)

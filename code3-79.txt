@@ -1,0 +1,4 @@
+var fruits: Set = ["Apple", "Orange", "Banana"]
+
+var newSet = fruits.union(["Grapes"]) // "Apple","Grapes","Orange","Banana"
+newSet.subtract(["Apple", "Banana"])  // "Orange", "Grapes"

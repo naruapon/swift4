@@ -1,0 +1,26 @@
+func showCamera() {
+   view.setNeedsLayout()
+   view.layoutIfNeeded()
+   let width = cameraView.bounds.size.width
+   let height = cameraView.bounds.size.height
+        
+   previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+   previewLayer.videoGravity = .resizeAspectFill
+   previewLayer.frame = CGRect(x: 0, y: 0, width: width, height: height)
+        
+   let connection = previewLayer.connection
+   let device = UIDevice.current
+   switch device.orientation {
+      case .portrait:
+         connection?.videoOrientation = .portrait
+      case .landscapeRight:
+         connection?.videoOrientation = .landscapeLeft
+      case .landscapeLeft:
+         connection?.videoOrientation = .landscapeRight
+      default:
+         connection?.videoOrientation = .portrait
+   }
+   let layer = cameraView.layer
+   layer.addSublayer(previewLayer)
+   captureSession.startRunning()
+}

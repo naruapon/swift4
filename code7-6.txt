@@ -1,0 +1,6 @@
+func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+   if (Int(string) != nil && textField.text != "0") || string == "" {
+      return true
+   }
+   return false
+}

@@ -1,0 +1,36 @@
+import UIKit
+import AVFoundation
+
+class ViewController: UIViewController {
+   @IBOutlet weak var videoView: UIView!
+   @IBOutlet weak var controlBar: UIView!
+   @IBOutlet weak var playButton: UIButton!
+   @IBOutlet weak var progressBar: UIProgressView!
+   var playerItem: AVPlayerItem!
+   var player: AVQueuePlayer!
+   var playerLayer: AVPlayerLayer!
+   var ready = false
+   var playing = false
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      playButton.isEnabled = false
+      controlBar.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.25)
+        
+      let bundle = Bundle.main
+      var videoURL = bundle.url(forResource: "videobeaches", withExtension: "mp4")
+      var asset = AVAsset(url: videoURL!)
+      playerItem = AVPlayerItem(asset: asset)
+      playerItem.addObserver(self, forKeyPath: "status", options: [], context: nil)
+
+      videoURL = bundle.url(forResource: "videotrees", withExtension: "mp4")
+      asset = AVAsset(url: videoURL!)
+      let playerItem2 = AVPlayerItem(asset: asset)
+      player = AVQueuePlayer(items: [playerItem, playerItem2])
+        
+      playerLayer = AVPlayerLayer(player: player)
+      playerLayer.frame = view.bounds
+      let layer = videoView.layer
+      layer.addSublayer(playerLayer)
+   }
+}

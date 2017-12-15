@@ -1,0 +1,32 @@
+import UIKit
+
+class ViewController: UIViewController {
+   override func viewDidLoad() {
+      super.viewDidLoad()
+
+      let nav = navigationController!
+      nav.hidesBarsOnSwipe = true
+      let bar = nav.navigationBar
+      bar.tintColor = UIColor.black
+
+      let titleFont = UIFont(name: "Verdana-Bold", size: 25.0)
+      let color = UIColor.cyan
+      let shadow = NSShadow()
+      shadow.shadowColor = UIColor.black
+      shadow.shadowOffset = CGSize(width: 2, height: 2)
+
+      let attributes = [NSAttributedStringKey.font: titleFont!, NSAttributedStringKey.foregroundColor: color, NSAttributedStringKey.shadow: shadow]
+      bar.titleTextAttributes = attributes
+
+      let item = navigationItem
+      item.title = "Menu"
+
+      let imagePortrait = UIImage(named: "buttonplus")
+      let imageLandscape = UIImage(named: "buttonpluslandscape")
+      let rightButton = UIBarButtonItem(image: imagePortrait, landscapeImagePhone: imageLandscape, style: .plain, target: self, action: #selector(printMessage))
+      item.rightBarButtonItems = [rightButton]
+   }
+   @objc func printMessage() {
+      print("Message")
+   }
+}

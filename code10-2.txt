@@ -1,0 +1,13 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var dates: UIDatePicker!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      Timer.scheduledTimer(timeInterval: 60.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+   }
+   @objc func update(sender: Timer) {
+      dates.date = Date()
+   }
+}

@@ -1,0 +1,12 @@
+override func viewWillAppear(_ animated: Bool) {
+   super.viewWillAppear(animated)
+
+   let request: NSFetchRequest<Books> = Books.fetchRequest()
+   request.predicate = NSPredicate(format: "author.name = 'Stephen King'")
+   do {
+      listOfBooks = try context.fetch(request)
+   } catch {
+      print("Error")
+   }
+   tableView.reloadData()
+}

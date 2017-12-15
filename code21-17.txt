@@ -1,0 +1,18 @@
+import UIKit
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+   var window: UIWindow?
+
+   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+      let bundle = Bundle.main
+      let filePath = bundle.path(forResource: "quote", ofType: "txt")
+        
+      let manager = FileManager.default
+      if let data = manager.contents(atPath: filePath!) {
+         let message = String(data: data, encoding: .utf8)
+         print(message!)
+      }
+      return true
+   }
+}

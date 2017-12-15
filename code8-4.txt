@@ -1,0 +1,16 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var pictureView: UIImageView!
+   let husky = UIImage(named: "husky")
+   let door = UIImage(named: "door")
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      pictureView.animationImages = [door!, husky!]
+      pictureView.animationDuration = 4
+   }
+   @IBAction func changePicture(_ sender: UIButton) {
+      pictureView.startAnimating()
+   }
+}

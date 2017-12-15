@@ -1,0 +1,38 @@
+import UIKit
+import AVFoundation
+
+class ViewController: UIViewController {
+   @IBOutlet weak var videoView: UIView!
+   var playerItem: AVPlayerItem!
+   var player: AVPlayer!
+   var playerLayer: AVPlayerLayer!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let bundle = Bundle.main
+      let videoURL = bundle.url(forResource: "trailer", withExtension: "mp4")
+
+      let asset = AVURLAsset(url: videoURL!)        
+      playerItem = AVPlayerItem(asset: asset)
+      playerItem.addObserver(self, forKeyPath: "status", options: [], context: nil)
+        
+      player = AVPlayer(playerItem: playerItem)
+      playerLayer = AVPlayerLayer(player: player)
+
+      playerLayer.frame = view.bounds
+      let layer = videoView.layer
+      layer.addSublayer(playerLayer)
+   }
+   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+      if keyPath == "status" {
+         if playerItem.status == .readyToPlay {
+            playerItem.removeObserver(self, forKeyPath: "status")
+            player.play()
+         }
+      }
+   }
+   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+      super.viewWillTransition(to: size, with: coordinator)
+      playerLayer.frame.size = size
+   }
+}

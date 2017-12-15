@@ -1,0 +1,40 @@
+import UIKit
+import MediaPlayer
+
+class ViewController: UIViewController, MPMediaPickerControllerDelegate {
+   @IBOutlet weak var playButton: UIButton!
+   @IBOutlet weak var titleLabel: UILabel!
+   var audioPlayer: AVAudioPlayer!
+
+   @IBAction func selectSong(_ sender: UIButton) {
+      let controller = MPMediaPickerController(mediaTypes: .music)
+      controller.delegate = self
+      present(controller, animated: true, completion: nil)
+   }
+   func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
+      let item = mediaItemCollection.items[0]
+      let mediaURL = item.assetURL
+      audioPlayer = try? AVAudioPlayer(contentsOf: mediaURL!)
+      if audioPlayer != nil {
+         titleLabel.text = item.title
+         audioPlayer.prepareToPlay()
+         playButton.setTitle("Play", for: .normal)
+      }
+      dismiss(animated: true, completion: nil)
+   }
+   func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
+      dismiss(animated: true, completion: nil)
+   }
+   @IBAction func playSong(_ sender: UIButton) {
+      if let player = audioPlayer {
+         if player.isPlaying {
+            playButton.setTitle("Play", for: .normal)
+            player.stop()
+            player.currentTime = 0
+         } else {
+            playButton.setTitle("Stop", for: .normal)
+            player.play()
+         }
+      }
+   }
+}

@@ -1,0 +1,7 @@
+override func viewWillAppear(_ animated: Bool) {
+   super.viewWillAppear(animated)
+   if let path = myTable.indexPathForSelectedRow {
+      myTable.deselectRow(at: path, animated: true)
+   }
+   myTable.reloadData()
+}

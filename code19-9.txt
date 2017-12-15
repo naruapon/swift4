@@ -1,0 +1,15 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var mainText: UITextView!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      let center = NotificationCenter.default
+      center.addObserver(self, selector: #selector(fontChanged(notification:)), name: Notification.Name.UIContentSizeCategoryDidChange, object: nil)
+   }
+   @objc func fontChanged(notification: Notification) {
+      mainText.font = UIFont.preferredFont(forTextStyle: .body)
+   }
+}

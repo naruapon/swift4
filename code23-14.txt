@@ -1,0 +1,39 @@
+import UIKit
+import CloudKit
+
+class CountriesViewController: UITableViewController {
+   var listCountries: [(String, CKRecordID)] = []
+
+   @IBAction func addCountry(_ sender: UIBarButtonItem) {
+      let alert = UIAlertController(title: "Insert New Country", message: nil, preferredStyle: .alert)
+      let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+      alert.addAction(cancel)
+      let action = UIAlertAction(title: "Save", style: .default, handler: { (action) in
+         if let fields = alert.textFields {
+            let name = fields[0].text!
+            self.insertCountry(name: name)
+         }
+      })
+      alert.addAction(action)
+      alert.addTextField(configurationHandler: nil)
+      present(alert, animated: true, completion: nil)
+   }
+   func insertCountry(name: String) {
+      let text = name.trimmingCharacters(in: .whitespaces)
+      if text != "" {
+         let id = CKRecordID(recordName: "id-\(text)")
+         let record = CKRecord(recordType: "Countries", recordID: id)
+         record.setObject(text as NSString, forKey: "name")
+
+         let container = CKContainer.default()
+         let database = container.privateCloudDatabase
+         database.save(record, completionHandler: { (recordSaved, error) in
+            if error != nil {
+               print("Error: record not saved")
+            }
+         })
+         listCountries.append((text, id))
+         tableView.reloadData()
+      }
+   }
+}

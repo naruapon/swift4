@@ -1,0 +1,24 @@
+import UIKit
+import Contacts
+
+class AddContactViewController: UIViewController {
+   @IBOutlet weak var nameField: UITextField!
+    
+   @IBAction func addContact(_ sender: UIButton) {
+      let text = nameField.text!
+      if text != "" {
+         let contact = CNMutableContact()
+         contact.givenName = text
+          
+         let request = CNSaveRequest()
+         request.add(contact, toContainerWithIdentifier: nil)
+         do {
+            let store = CNContactStore()
+            try store.execute(request)
+         } catch {
+            print("Error")
+         }
+      }
+      navigationController?.popViewController(animated: true)
+   }
+}

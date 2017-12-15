@@ -1,0 +1,14 @@
+import UIKit
+
+class DrawingView: UIView {
+   override func draw(_ rect: CGRect) {
+      if let context = UIGraphicsGetCurrentContext() {
+         let degrees = CGFloat(90 * Float.pi / 180)
+         context.translateBy(x: 100, y: 100)
+         context.rotate(by: degrees)
+            
+         let frame = CGRect(x: -25, y: -10, width: 50, height: 20)
+         context.stroke(frame)
+      }
+   }
+}

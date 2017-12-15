@@ -1,0 +1,34 @@
+import UIKit
+import Photos
+
+class PhotosViewController: UICollectionViewController {
+   var photosList: PHFetchResult<PHAsset>!
+   var picture: UIImage!
+
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let status = PHPhotoLibrary.authorizationStatus()
+      if status == PHAuthorizationStatus.authorized {
+         loadPhotos()
+      } else if status == PHAuthorizationStatus.notDetermined {
+         PHPhotoLibrary.requestAuthorization({ (status) in
+            OperationQueue.main.addOperation({
+               if status == PHAuthorizationStatus.authorized {
+                  self.loadPhotos()
+                  self.collectionView?.reloadData()
+               } else {
+                  self.notAuthorized()
+               }
+            })
+         })
+      } else {
+         notAuthorized()
+      }
+   }
+   func notAuthorized() {
+      let alert = UIAlertController(title: "No Photos", message: "This app is not authorized to access the photos", preferredStyle: .alert)
+      let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+      alert.addAction(action)
+      present(alert, animated: true, completion: nil)
+   }
+}

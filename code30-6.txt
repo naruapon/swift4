@@ -1,0 +1,14 @@
+func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+   if let temp = annotation as? MyAnnotation {
+      var aView = mapView.dequeueReusableAnnotationView(withIdentifier: "Pins")
+      if aView == nil {
+         aView = MKAnnotationView(annotation: temp, reuseIdentifier: "Pins")
+         aView?.image = UIImage(named: "iconmap")
+         aView?.canShowCallout = true
+      } else {
+         aView?.annotation = annotation
+      }
+      return aView
+   }
+   return nil
+}

@@ -1,0 +1,13 @@
+@IBAction func playVideo(_ sender: UIButton) {
+   if ready {
+      if playing {
+         player.pause()
+         playing = false
+         playButton.setTitle("Play", for: .normal)
+      } else {
+         player.play()
+         playing = true
+         playButton.setTitle("Pause", for: .normal)
+      }
+   }
+}

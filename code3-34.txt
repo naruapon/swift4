@@ -1,0 +1,10 @@
+struct Price {
+   var USD: Double
+   lazy var rate: Double = {
+      return 1.29
+   }()
+   init(money: Double) {
+      USD = money
+   }
+}
+var purchase = Price(money: 3.5)

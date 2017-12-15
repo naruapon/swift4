@@ -1,0 +1,31 @@
+import UIKit
+
+class ViewController: UIViewController, UIScrollViewDelegate {
+   @IBOutlet weak var mainScroll: UIScrollView!
+   var imgView: UIImageView!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      mainScroll.delegate = self
+        
+      view.setNeedsLayout()
+      view.layoutIfNeeded()
+        
+      imgView = UIImageView(image: UIImage(named: "doll"))
+      let imageWidth = imgView.frame.size.width
+      let imageHeight = imgView.frame.size.height
+      let scrollWidth = mainScroll.frame.size.width
+      let scrollHeight = mainScroll.frame.size.height
+        
+      let minScale = min(scrollWidth / imageWidth, scrollHeight / imageHeight)
+      let maxScale = max(minScale * 4.0, 1.0)        
+      mainScroll.minimumZoomScale = minScale
+      mainScroll.maximumZoomScale = maxScale
+
+      mainScroll.contentSize = CGSize(width: imageWidth, height: imageHeight)
+      mainScroll.addSubview(imgView)
+   }
+   func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+      return imgView
+   }
+}

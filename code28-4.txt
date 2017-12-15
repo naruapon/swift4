@@ -1,0 +1,9 @@
+override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+   if segue.identifier == "showDetails" {
+      let controller = segue.destination as! DetailsViewController
+      if let path = tableView.indexPathForSelectedRow {
+         let contact = contactList[path.row]
+         controller.contactID = contact.identifier
+      }
+   }
+}

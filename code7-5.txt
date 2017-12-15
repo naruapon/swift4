@@ -1,0 +1,26 @@
+import UIKit
+
+class ViewController: UIViewController, UITextFieldDelegate {
+   @IBOutlet weak var titleLabel: UILabel!
+   @IBOutlet weak var titleInput: UITextField!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      titleInput.delegate = self
+   }
+   @IBAction func changeTitle(_ sender: UIButton) {
+      if titleInput.text != "" {
+         titleLabel.text = titleInput.text
+         titleInput.text = ""
+      }
+   }
+   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+      if let text = textField.text {
+         let total = text.count + string.count
+         if total > 10 {
+            return false
+         }
+      }
+      return true
+   }
+}

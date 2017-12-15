@@ -1,0 +1,10 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var pictureView: UIImageView!
+    
+   @IBAction func goBack(_ segue: UIStoryboardSegue) {
+      let controller = segue.source as! CameraViewController
+      pictureView.image = controller.picture
+   }
+}

@@ -1,0 +1,8 @@
+var fruits = ["Banana", "Orange", "Apple"]
+if !fruits.isEmpty {
+   fruits.removeLast()  // ["Banana", "Orange"]
+   fruits.insert("Pear", at: 1)  // ["Banana", "Pear", "Orange"]
+   fruits.removeAll()  // []
+   fruits.append("Peach")  // ["Peach"]
+   fruits.insert(contentsOf: ["Cherry"], at: 1)  // ["Peach", "Cherry"]
+}

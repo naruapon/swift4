@@ -1,0 +1,40 @@
+import Foundation
+
+struct ApplicationData {
+   private var items: [String]
+   private var filePath: String!
+    
+   init() {
+      items = []
+        
+      let manager = FileManager.default
+      let documents = manager.urls(for: .documentDirectory, in: .userDomainMask)
+      let docURL = documents.first!
+      let fileURL = docURL.appendingPathComponent("items.dat")
+      filePath = fileURL.path
+      if manager.fileExists(atPath: filePath) {
+         items = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as! [String]
+      } else {
+         NSKeyedArchiver.archiveRootObject(items, toFile: filePath)
+      }
+   }
+   func getItem(atIndex: Int) -> String {
+      return items[atIndex]
+   }
+   func getTotal() -> Int {
+      return items.count
+   }
+   mutating func addNewItem(name: String) {
+      items.append(name)
+      NSKeyedArchiver.archiveRootObject(items, toFile: filePath)
+   }
+   mutating func removeItem(index: Int) {
+      items.remove(at: index)
+      NSKeyedArchiver.archiveRootObject(items, toFile: filePath)
+   }
+   mutating func updateItem(index: Int, name: String) {
+      items[index] = name
+      NSKeyedArchiver.archiveRootObject(items, toFile: filePath)
+   }
+}
+var AppData = ApplicationData()

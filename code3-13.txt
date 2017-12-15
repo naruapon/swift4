@@ -1,0 +1,10 @@
+func getDescription<T: Equatable>(value1: T, value2: T) -> String {
+   var message: String!
+   if value1 != value2 {
+      message = "The value is \(value1)"
+   } else {
+      message = "The value is \(value2)"
+   }
+   return message
+}
+let result = getDescription(value1: 5, value2: 8)

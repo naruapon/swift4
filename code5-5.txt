@@ -1,0 +1,10 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var mytitle: UILabel!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      mytitle.textColor = UIColor.red
+   }
+}

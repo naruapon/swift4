@@ -1,0 +1,2 @@
+var fruits = ["Blueberry", "Apple", "Banana"]
+fruits.sort()  // ["Apple", "Banana", "Blueberry"]

@@ -1,0 +1,8 @@
+func checkZones() {
+   let newZone = CKRecordZone(zoneName: "listBooks")
+   database.save(newZone, completionHandler: { (zone, error) in
+      if error != nil {
+         print("Error: zone not saved")
+      }
+   })
+}

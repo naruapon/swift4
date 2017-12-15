@@ -1,0 +1,30 @@
+import UIKit
+
+class MyTableViewController: UITableViewController {
+   var items: [String]!
+   var refresh: UIRefreshControl!
+
+   override func viewDidLoad() {
+      super.viewDidLoad()
+
+      refresh = UIRefreshControl()
+      refresh.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+      refresh.attributedTitle = NSMutableAttributedString(string: "Refreshing Table")
+      tableView.refreshControl = refresh
+
+      items = ["Lettuce", "Tomatoes", "Milk", "Granola", "Donuts", "Cookies", "Butter", "Cheese", "Lemonade", "Yogurt", "Oatmeal", "Juice", "Tea", "Coffee", "Bagels", "Coffee Filters", "Brownies", "Potatoes", "Onions"]
+   }
+   @objc func refreshTable() {
+      tableView.reloadData()
+      refresh.endRefreshing()
+   }
+   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      return items.count
+   }
+   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+      let row = indexPath.row
+      cell.textLabel?.text = items[row]
+      return cell
+   }
+}

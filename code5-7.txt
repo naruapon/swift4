@@ -1,0 +1,11 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var counterLabel: UILabel!
+   var counter: Int = 0
+    
+   @IBAction func showCounter(_ sender: UIButton) {
+      counter += 1
+      counterLabel.text = "Pressed: \(counter)"
+   }
+}

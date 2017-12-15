@@ -1,0 +1,7 @@
+var text = "Hello World"
+if !text.isEmpty {
+   var start = text.startIndex
+   var firstCharacter = text[start]
+    
+   print("First character is \(firstCharacter)")  // "First character is H"
+}

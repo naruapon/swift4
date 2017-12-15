@@ -1,0 +1,2 @@
+var age = String(44)
+var mytext = "My age is " + age  // "My age is 44"

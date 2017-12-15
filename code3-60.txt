@@ -1,0 +1,5 @@
+var fruits = ["Banana", "Orange", "Apple", "Banana", "Banana"]
+fruits.removeSubrange(1...2)
+fruits.replaceSubrange(0..<3, with: ["Cherry", "Cherry", "Cherry"])
+
+print("The new array has \(fruits.count) fruits")

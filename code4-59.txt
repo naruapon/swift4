@@ -1,0 +1,8 @@
+import UIKit
+
+var size = UIFont.buttonFontSize
+var myfont = UIFont.systemFont(ofSize: size)
+
+var label = UILabel(frame: CGRect(x: 20, y: 20, width: 300, height: 50))
+label.text = "Hello World"
+label.font = myfont

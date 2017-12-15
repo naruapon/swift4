@@ -1,0 +1,11 @@
+import UIKit
+
+class ViewController: UIViewController {
+   var counter = 1
+    
+   @IBAction func updateBadge(_ sender: UIButton) {
+      let item = tabBarItem
+      item?.badgeValue = String(counter)
+      counter += 1
+   }
+}

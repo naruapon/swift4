@@ -1,0 +1,13 @@
+override func viewDidLoad() {
+   super.viewDidLoad()
+        
+   bookTitle.becomeFirstResponder()
+   let app = UIApplication.shared
+   let appDelegate = app.delegate as! AppDelegate
+   context = appDelegate.context
+        
+   let request: NSFetchRequest<Authors> = Authors.fetchRequest()
+   if let total = try? context.count(for: request) {
+      print("Total Authors: (\(total))")
+   }
+}

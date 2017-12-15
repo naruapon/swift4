@@ -1,0 +1,9 @@
+@IBAction func updateValue(_ sender: UIStepper) {
+   let current = Int(sender.value)
+   if current % 10 == 0 {
+      control.round = true
+   } else {
+      control.round = false
+   }
+   counterLabel.text = String(current)
+}

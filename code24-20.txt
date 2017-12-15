@@ -1,0 +1,11 @@
+import UIKit
+
+class DrawingView: UIView {
+   override func draw(_ rect: CGRect) {
+      if let image = UIImage(named: "husky") {
+         let width = image.size.width
+         let height = image.size.height
+         image.draw(in: CGRect(x: 0, y: 50, width: width, height: height))
+      }
+   }
+}

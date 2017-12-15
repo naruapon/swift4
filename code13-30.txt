@@ -1,0 +1,40 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var cityLabel: UILabel!
+   @IBOutlet weak var temperatureLabel: UILabel!
+   @IBOutlet weak var precipitationLabel: UILabel!
+   @IBOutlet weak var humidityLabel: UILabel!
+   @IBOutlet weak var windLabel: UILabel!
+   @IBOutlet weak var pressureLabel: UILabel!
+   @IBOutlet weak var visibilityLabel: UILabel!
+   @IBOutlet weak var feelsLabel: UILabel!
+    
+   override func viewWillAppear(_ animated: Bool) {
+      let selected = AppData.selectedCity
+      let cityData = AppData.citiesData[selected]
+      var temperature = Measurement(value: cityData.temperature, unit: UnitTemperature.celsius)
+      var feels = Measurement(value: cityData.feels, unit: UnitTemperature.celsius)
+      if !AppData.celsius {
+         temperature.convert(to: UnitTemperature.fahrenheit)
+         feels.convert(to: UnitTemperature.fahrenheit)
+      }
+      let precipitation = Measurement(value: cityData.precipitation, unit: UnitLength.centimeters)
+      let wind = Measurement(value: cityData.wind, unit: UnitSpeed.kilometersPerHour)
+      let pressure = Measurement(value: cityData.pressure, unit: UnitPressure.millibars)
+      let visibility = Measurement(value: cityData.visibility, unit: UnitLength.kilometers)
+
+      let formatter = MeasurementFormatter()
+      formatter.unitStyle = MeasurementFormatter.UnitStyle.short
+      formatter.unitOptions = MeasurementFormatter.UnitOptions.providedUnit
+      temperatureLabel.text = formatter.string(from: temperature)
+      feelsLabel.text = formatter.string(from: feels)
+        
+      cityLabel.text = AppData.citiesName[selected]
+      precipitationLabel.text = formatter.string(from: precipitation)
+      humidityLabel.text = "\(cityData.humidity) %"
+      windLabel.text = formatter.string(from: wind)
+      pressureLabel.text = formatter.string(from: pressure)
+      visibilityLabel.text = formatter.string(from: visibility)
+   }
+}

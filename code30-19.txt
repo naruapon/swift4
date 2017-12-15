@@ -1,0 +1,13 @@
+@IBAction func showRouteDetails(_ sender: UIBarButtonItem) {
+   if let current = route {
+      let distance = current.distance
+      let time = current.expectedTravelTime
+      var message = "Distance: \(distance) meters \r\n"
+      message += "Time: \(time) seconds"
+            
+      let alert = UIAlertController(title: "Route", message: message, preferredStyle: .alert)
+      let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+      alert.addAction(action)
+      present(alert, animated: true, completion: nil)
+   }
+}

@@ -1,0 +1,22 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var mainScroll: UIScrollView!
+
+   override func viewDidLoad() {
+      super.viewDidLoad()
+
+      let imgView = UIImageView(image: UIImage(named: "doll"))
+      let imgWidth = imgView.frame.size.width
+      let imgHeight = imgView.frame.size.height
+      mainScroll.contentSize = CGSize(width: imgWidth, height: imgHeight)
+      mainScroll.addSubview(imgView)
+
+      let logoView = UIImageView(image: UIImage(named: "logo"))
+      logoView.translatesAutoresizingMaskIntoConstraints = false
+      mainScroll.addSubview(logoView)
+
+      logoView.topAnchor.constraint(equalTo: mainScroll.frameLayoutGuide.topAnchor, constant: 25).isActive = true
+      logoView.leadingAnchor.constraint(equalTo: mainScroll.frameLayoutGuide.leadingAnchor, constant: 25).isActive = true
+   }
+}

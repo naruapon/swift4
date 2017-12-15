@@ -1,0 +1,70 @@
+import UIKit
+import MapKit
+
+class ViewController: UIViewController, MKMapViewDelegate {
+   @IBOutlet weak var mapView: MKMapView!
+   var appleCoord: CLLocationCoordinate2D!
+   var route: MKRoute?
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      appleCoord = CLLocationCoordinate2D(latitude: 40.7637825011971, longitude: -73.9731328627541)
+      let region = MKCoordinateRegionMakeWithDistance(appleCoord, 2000, 2000)
+      mapView.setRegion(region, animated: false)
+      mapView.delegate = self
+        
+      let request = MKLocalSearchRequest()
+      request.naturalLanguageQuery = "Coffee"
+      request.region = region
+        
+      let search = MKLocalSearch(request: request)
+      search.start(completionHandler: { (results, error) in
+         if let items = results?.mapItems {
+            for item in items {
+               if let coordinates = item.placemark.location?.coordinate {
+                  let annotation = MKPointAnnotation()
+                  annotation.coordinate = coordinates
+                  annotation.title = item.name
+                  annotation.subtitle = item.phoneNumber
+                  self.mapView.addAnnotation(annotation)
+               }
+            }
+         }
+      })
+   }
+   func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+      if let destinationCoord = view.annotation?.coordinate {
+         let placeOrigin = MKPlacemark(coordinate: appleCoord)
+         let origin = MKMapItem(placemark: placeOrigin)
+         origin.name = "Apple Store"
+            
+         let placeDestination = MKPlacemark(coordinate: destinationCoord)
+         let destination = MKMapItem(placemark: placeDestination)
+         destination.name = view.annotation?.title!
+            
+         let request = MKDirectionsRequest()
+         request.source = origin
+         request.destination = destination
+         request.transportType = .walking
+         request.requestsAlternateRoutes = false
+            
+         let directions = MKDirections(request: request)
+         directions.calculate(completionHandler: { (results, error) in
+            if let routes = results?.routes {
+               if let oldRoute = self.route {
+                  self.mapView.remove(oldRoute.polyline)
+                  self.route = nil
+               }
+               self.route = routes.first!
+               self.mapView.add(self.route!.polyline, level: .aboveRoads)
+            }
+         })
+      }
+   }
+   func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+      let render = MKPolylineRenderer(overlay: overlay)
+      render.strokeColor = UIColor.red
+      return render
+   }
+}

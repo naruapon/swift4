@@ -1,0 +1,12 @@
+struct ApplicationData {
+   var picturesList: [String]
+   var ratings: [Int]
+   var selectedPicture: Int
+  
+   init() {
+      picturesList = ["Husky", "Door"]
+      ratings = [0, 0]
+      selectedPicture = 0
+   }
+}
+var AppData = ApplicationData()

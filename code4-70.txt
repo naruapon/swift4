@@ -1,0 +1,5 @@
+import UIKit
+
+let segment = UISegmentedControl(items: ["Yes", "No"])
+segment.frame.origin = CGPoint(x: 50, y: 50)
+segment.selectedSegmentIndex = 1

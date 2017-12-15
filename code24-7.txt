@@ -1,0 +1,18 @@
+import UIKit
+
+class DrawingView: UIView {
+   override func draw(_ rect: CGRect) {
+      if let context = UIGraphicsGetCurrentContext() {
+         context.setLineWidth(10)
+         context.setLineCap(.round)
+         context.setLineJoin(.round)
+         context.setLineDash(phase: 0, lengths: [15])
+
+         context.beginPath()
+         context.move(to: CGPoint(x: 20, y: 80))
+         context.addLine(to: CGPoint(x: 70, y: 10))
+         context.addLine(to: CGPoint(x: 120, y: 80))
+         context.strokePath()
+      }
+   }
+}

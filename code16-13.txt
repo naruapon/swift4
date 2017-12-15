@@ -1,0 +1,64 @@
+import UIKit
+
+class DetailViewController: UIViewController {
+   @IBOutlet weak var bookCover: UIImageView!
+   @IBOutlet weak var bookTitle: UILabel!
+   @IBOutlet weak var bookAuthor: UILabel!
+   var selected: Int!
+   var controllerHelp: UIViewController!
+
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let button = splitViewController?.displayModeButtonItem
+      navigationItem.leftBarButtonItem = button
+      navigationItem.leftItemsSupplementBackButton = true
+      if selected != nil {
+         let file = AppData.items[selected]
+         bookCover.image = UIImage(named: file)
+         if let data = AppData.itemsData[file] {
+            bookTitle.text = data[0]
+            bookAuthor.text = data[1]
+         }
+      }
+   }
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      if segue.identifier == "showPicture" {
+         let controller = segue.destination as! PictureViewController
+         controller.selected = selected
+      }
+   }
+   @IBAction func showHelp(_ sender: UIBarButtonItem) {
+      let label = UILabel(frame: CGRect.zero)
+      label.translatesAutoresizingMaskIntoConstraints = false
+      label.text = "Press Expand to maximize the cover"
+      label.textAlignment = .center
+      label.numberOfLines = 2
+      label.font = UIFont.systemFont(ofSize: 24)
+
+      let closeButton = UIButton(type: .system)
+      closeButton.translatesAutoresizingMaskIntoConstraints = false
+      closeButton.setTitle("Close", for: .normal)
+      closeButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+      closeButton.addTarget(self, action: #selector(closeHelp), for: .touchUpInside)
+
+      controllerHelp = UIViewController()
+      controllerHelp.modalPresentationStyle = .pageSheet
+      controllerHelp.view.backgroundColor = UIColor.white
+      controllerHelp.view.addSubview(label)
+      controllerHelp.view.addSubview(closeButton)
+
+      let cView = controllerHelp.view!
+      label.topAnchor.constraint(equalTo: cView.topAnchor, constant: 16).isActive = true
+      label.leadingAnchor.constraint(equalTo: cView.leadingAnchor, constant: 16).isActive = true
+      label.trailingAnchor.constraint(equalTo: cView.trailingAnchor, constant: -16).isActive = true
+
+      closeButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 8).isActive = true
+      closeButton.leadingAnchor.constraint(equalTo: cView.leadingAnchor, constant: 16).isActive = true
+      closeButton.trailingAnchor.constraint(equalTo: cView.trailingAnchor, constant: -16).isActive = true
+
+      present(controllerHelp, animated: true, completion: nil)
+   }
+   @objc func closeHelp() {
+      controllerHelp.dismiss(animated: true, completion: nil)
+   }
+}

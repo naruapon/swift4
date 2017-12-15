@@ -1,0 +1,4 @@
+import Foundation
+
+var randomnumber = arc4random_uniform(10) + 1
+print("The number is: \(randomnumber)")

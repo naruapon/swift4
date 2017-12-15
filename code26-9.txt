@@ -1,0 +1,6 @@
+func notAuthorized() {
+   let alert = UIAlertController(title: "No Camera", message: "This app is not authorized to use the camera", preferredStyle: .alert)
+   let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+   alert.addAction(action)
+   present(alert, animated: true, completion: nil)
+}

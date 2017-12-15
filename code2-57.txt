@@ -1,0 +1,3 @@
+var fruits: [String: [String]] = ["A": ["Apple", "Apricot"], "B": ["Banana", "Blueberries"]]
+let list = fruits["A"]!  // ["Apple", "Apricot"]
+list[0]  // "Apple"

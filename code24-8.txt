@@ -1,0 +1,17 @@
+import UIKit
+
+class DrawingView: UIView {
+   override func draw(_ rect: CGRect) {
+      if let context = UIGraphicsGetCurrentContext() {
+         context.saveGState()
+         context.setLineWidth(10)
+         context.beginPath()
+         context.move(to: CGPoint(x: 20, y: 20))
+         context.addLine(to: CGPoint(x: 20, y: 100))
+         context.strokePath()
+         context.restoreGState()
+            
+         context.strokeEllipse(in: CGRect(x: 40, y: 60, width: 40, height: 40))
+      }
+   }
+}

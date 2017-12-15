@@ -1,0 +1,31 @@
+import UIKit
+import CoreMotion
+
+class ViewController: UIViewController {
+   @IBOutlet weak var activityLabel: UILabel!
+   var manager: CMMotionActivityManager!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      if CMMotionActivityManager.isActivityAvailable() {
+         manager = CMMotionActivityManager()
+         let queue = OperationQueue.main
+         manager.startActivityUpdates(to: queue, withHandler: { (data) in
+            if let values = data {
+               if values.walking {
+                  self.activityLabel.text = "Walking"
+               } else if values.running {
+                  self.activityLabel.text = "Running"
+               } else if values.cycling {
+                  self.activityLabel.text = "Cycling"
+               } else {
+                  self.activityLabel.text = "No Activity"
+               }
+            }
+         })
+      } else {
+         print("Motion Activity is not available")
+      }
+   }
+}

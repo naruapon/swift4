@@ -1,0 +1,40 @@
+func saveRecord(id: String, title: String) {
+   let newBook = Books(context: context)
+   newBook.recordID = id
+   newBook.title = title
+   do {
+      try context.save()
+      listChanges.insert(id)
+   } catch {
+      print("Error")
+   }
+   let container = CKContainer.default()
+   container.accountStatus(completionHandler: { (status, error) in
+      if status == CKAccountStatus.available && !self.listChanges.isEmpty {
+         for itemID in self.listChanges {
+            let request: NSFetchRequest<Books> = Books.fetchRequest()
+            request.predicate = NSPredicate(format: "recordID = %@", itemID)
+            do {
+               let result = try self.context.fetch(request)
+               if !result.isEmpty {
+                  let book = result[0]
+                  let zone = CKRecordZone(zoneName: "listBooks")
+                  let recordID = CKRecordID(recordName: book.recordID!, zoneID: zone.zoneID)
+                  let record = CKRecord(recordType: "Books", recordID: recordID)
+                  record.setObject(book.title! as NSString, forKey: "title")
+                  self.database.save(record, completionHandler: { (recordSaved, error) in
+                     if error == nil {
+                        self.listChanges.remove(id)
+                     }
+                  })
+               } else {
+                  self.listChanges.remove(id)
+               }
+            } catch {
+               print("Error")
+            }
+         }
+      }
+   })
+   tableView.reloadData()
+}

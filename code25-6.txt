@@ -1,0 +1,11 @@
+@objc func videoEnded(notification: NSNotification) {
+   playerItem.seek(to: kCMTimeZero, completionHandler: {(finished) in
+      if finished {
+         let main = OperationQueue.main
+         main.addOperation {
+            self.playing = false
+            self.playButton.setTitle("Play", for: .normal)
+         }
+      }
+   })
+}

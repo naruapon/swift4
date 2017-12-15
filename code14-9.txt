@@ -1,0 +1,10 @@
+func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+   let start = indexLetters.index(of: title)
+   for counter in (0...start!).reversed() {
+      let letter = indexLetters[counter]
+      if let index = categories.index(of: letter) {
+         return index
+      }
+   }
+   return 0
+}

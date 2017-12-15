@@ -1,0 +1,10 @@
+func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+   if editingStyle == UITableViewCellEditingStyle.delete {
+      let row = indexPath.row
+      let item = AppData.items[row]
+      AppData.details.removeValue(forKey: item)
+      AppData.items.remove(at: row)
+            
+      myTable.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+   }
+}

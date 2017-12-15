@@ -1,0 +1,33 @@
+import UIKit
+import AVFoundation
+
+class ViewController: UIViewController, AVAudioPlayerDelegate {
+   @IBOutlet weak var playButton: UIButton!
+   var audioPlayer: AVAudioPlayer!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let bundle = Bundle.main
+      let audioURL = bundle.url(forResource: "beach", withExtension: "mp3")
+      audioPlayer = try? AVAudioPlayer(contentsOf: audioURL!)
+      if audioPlayer != nil {
+         audioPlayer.delegate = self
+         audioPlayer.prepareToPlay()
+      }
+   }
+   func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+      playButton.setTitle("Play", for: .normal)
+   }
+   @IBAction func playAudio(_ sender: UIButton) {
+      if let player = audioPlayer {
+         if player.isPlaying {
+            playButton.setTitle("Play", for: .normal)
+            player.stop()
+            player.currentTime = 0
+         } else {
+            playButton.setTitle("Stop", for: .normal)
+            player.play()
+         }
+      }
+   }
+}

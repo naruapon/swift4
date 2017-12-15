@@ -1,0 +1,24 @@
+import UIKit
+import MapKit
+
+class ViewController: UIViewController, MKMapViewDelegate {
+   @IBOutlet weak var mapView: MKMapView!
+   var origin: MKMapItem!
+   var destination: MKMapItem!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      let coordOrigin = CLLocationCoordinate2D(latitude: 40.7637825011971, longitude: -73.9731328627541)
+      let placeOrigin = MKPlacemark(coordinate: coordOrigin)
+      origin = MKMapItem(placemark: placeOrigin)
+
+      let coordDestination = CLLocationCoordinate2D(latitude: 40.7523809365088, longitude: -73.9778321046893)
+      let placeDestination = MKPlacemark(coordinate: coordDestination)
+      destination = MKMapItem(placemark: placeDestination)
+        
+      let region = MKCoordinateRegionMakeWithDistance(coordOrigin, 2000, 2000)
+      mapView.setRegion(region, animated: false)
+      mapView.delegate = self
+   }
+}

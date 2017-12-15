@@ -1,0 +1,8 @@
+override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+   if segue.identifier == "showDocument" {
+      let controller = segue.destination as! EditionViewController
+      if let path = tableView.indexPathForSelectedRow {
+         controller.selected = documentsList[path.row]
+      }
+   }
+}

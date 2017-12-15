@@ -1,0 +1,15 @@
+import UIKit
+
+class ViewController: UIViewController {
+   var mydelegate: AppDelegate!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let app = UIApplication.shared
+      mydelegate = app.delegate as! AppDelegate
+   }
+   @IBAction func goToPicture(_ sender: UIButton) {
+      mydelegate.selectedPicture = sender.tag
+      performSegue(withIdentifier: "showPicture", sender: self)
+   }
+}

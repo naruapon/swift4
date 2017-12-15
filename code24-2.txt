@@ -1,0 +1,15 @@
+import UIKit
+
+class DrawingView: UIView {
+   override func draw(_ rect: CGRect) {
+      if let context = UIGraphicsGetCurrentContext() {
+         context.beginPath()
+         context.move(to: CGPoint(x: 10, y: 150))
+         context.addLine(to: CGPoint(x: 100, y: 150))
+         context.addLine(to: CGPoint(x: 10, y: 250))
+         context.closePath()
+            
+         context.strokePath()
+      }
+   }
+}

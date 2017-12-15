@@ -1,0 +1,9 @@
+override func viewDidLoad() {
+   super.viewDidLoad()
+   manager = CLLocationManager()
+   manager.requestWhenInUseAuthorization()
+
+   mapView.showsUserLocation = true
+   mapView.userLocation.title = "You are here"
+   mapView.delegate = self
+}

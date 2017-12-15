@@ -1,0 +1,10 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var pictureView: UIImageView!
+   let door = UIImage(named: "door")
+    
+   @IBAction func changePicture(_ sender: UIButton) {
+      pictureView.image = door
+   }
+}

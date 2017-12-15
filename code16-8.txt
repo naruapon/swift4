@@ -1,0 +1,8 @@
+override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+   if segue.identifier == "showDetail" {
+      let navigation = segue.destination as! UINavigationController
+      let controller = navigation.topViewController as! DetailViewController
+      let path = tableView.indexPathForSelectedRow
+      controller.selected = path?.row
+   }
+}

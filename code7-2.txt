@@ -1,0 +1,16 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var titleLabel: UILabel!
+   @IBOutlet weak var titleInput: UITextField!
+
+   @IBAction func changeTitle(_ sender: UIButton) {
+      var text = titleInput.text!
+      text = text.trimmingCharacters(in: .whitespaces)
+        
+      if text != "" {
+         titleLabel.text = text
+         titleInput.text = ""
+      }
+   }
+}

@@ -1,0 +1,34 @@
+import UIKit
+
+class ViewController: UIViewController {
+   override func viewDidLoad() {
+      super.viewDidLoad()
+
+      let manager = FileManager.default
+      let documents = manager.urls(for: .documentDirectory, in: .userDomainMask)
+      let docURL = documents.first!
+
+      let fileURL = docURL.appendingPathComponent("userdata.dat")
+      let filePath = fileURL.path
+      if manager.fileExists(atPath: filePath) {
+         if let results = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? Data {
+            let encoder = PropertyListDecoder()
+            if let books = try? encoder.decode([Book].self, from: results) {
+               for book in books {
+                  print("\(book.title) - \(book.author) - \(book.edition)")
+               }
+            }
+         }
+      } else {
+         let book1 = Book(title: "IT", author: "Stephen King", edition: 2)
+         let book2 = Book(title: "Pet Sematary", author: "Stephen King", edition: 1)
+         let book3 = Book(title: "The Shining", author: "Stephen King", edition: 1)
+         let list = [book1, book2, book3]
+
+         let encoder = PropertyListEncoder()
+         if let data = try? encoder.encode(list) {
+            NSKeyedArchiver.archiveRootObject(data, toFile: filePath)
+         }
+      }
+   }
+}

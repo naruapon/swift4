@@ -1,0 +1,13 @@
+struct Price {
+   var USD: Double
+   private var rate = 1.29
+    
+   init(money: Double) {
+      USD = money
+   }
+   func getCAD() -> Double {
+      let total = USD * rate
+      return total
+   }
+}
+var purchase = Price(money: 3.5)

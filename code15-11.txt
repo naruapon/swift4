@@ -1,0 +1,23 @@
+import UIKit
+
+class ViewController: UIViewController, UICollectionViewDataSource {
+   @IBOutlet weak var collectionItems: UICollectionView!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      collectionItems.dataSource = self
+      collectionItems.backgroundColor = UIColor.white
+        
+      let layout = collectionItems.collectionViewLayout as! UICollectionViewFlowLayout
+      layout.sectionInset = UIEdgeInsets(top: 25, left: 20, bottom: 25, right: 20)
+   }
+   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+      return AppData.items.count
+   }
+   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+      let cell = collectionItems.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as! BookCell
+      let file = AppData.items[indexPath.item]
+      cell.bookCover.image = UIImage(named: file)
+      return cell
+   }
+}

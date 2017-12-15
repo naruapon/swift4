@@ -1,0 +1,16 @@
+override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+   let asset = photosList[indexPath.item]
+   let manager = PHImageManager.default()
+   manager.requestPlayerItem(forVideo: asset, options: nil, resultHandler: { (playerItem, info) in
+      if let item = playerItem {
+         OperationQueue.main.addOperation({
+            let player = AVPlayer(playerItem: item)
+            let controller = AVPlayerViewController()
+            controller.player = player
+            self.present(controller, animated: true, completion: {
+               player.play()
+            })
+         })
+      }
+   })
+}

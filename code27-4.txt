@@ -1,0 +1,15 @@
+import UIKit
+import SafariServices
+
+class ViewController: UIViewController {
+   @IBAction func openWeb(_ sender: UIButton) {
+      let url = URL(string: "http://www.formasterminds.com")
+
+      let controller = SFSafariViewController(url: url!)
+      controller.dismissButtonStyle = .close
+      controller.preferredBarTintColor = UIColor(red: 81/255, green: 91/255, blue: 119/255, alpha: 1.0)
+      controller.preferredControlTintColor = UIColor.white
+
+      present(controller, animated: true, completion: nil)
+   }
+}

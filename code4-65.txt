@@ -1,0 +1,7 @@
+import UIKit
+
+var progressbar = UIProgressView(progressViewStyle: .default)
+progressbar.progress = 0.2
+
+progressbar.tintColor = UIColor.red
+progressbar.trackTintColor = UIColor.blue

@@ -1,0 +1,18 @@
+import UIKit
+
+class DrawingView: UIView {
+   override func draw(_ rect: CGRect) {
+      if let context = UIGraphicsGetCurrentContext() {
+         context.beginPath()
+         context.move(to: CGPoint(x: 10, y: 150))
+         context.addLine(to: CGPoint(x: 100, y: 150))
+            
+         let startAngle = CGFloat(270 * Float.pi / 180)
+         let endAngle = CGFloat(90 * Float.pi / 180)
+         context.addArc(center: CGPoint(x: 100, y: 170), radius: 20, startAngle: startAngle, endAngle: endAngle, clockwise: false)
+         context.addLine(to: CGPoint(x: 10, y: 190))
+            
+         context.strokePath()
+      }
+   }
+}

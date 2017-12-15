@@ -1,0 +1,2 @@
+var list = ["First": "Apple", "Second": "Orange"]
+var message = "We have \(list["First"]!) and \(list["Second"]!)"

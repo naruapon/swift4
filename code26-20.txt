@@ -1,0 +1,25 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var pictureView: UIImageView!
+   var picture: UIImage!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      picture = UIImage(named: "husky")
+      pictureView.image = picture
+   }
+   @IBAction func applyFilter(_ sender: UIButton) {
+      let context = CIContext(options: nil)
+      let image = CIImage(image: picture)
+      if let filter = CIFilter(name: "CIComicEffect") {
+         filter.setValue(image, forKey: "inputImage")
+         if let result = filter.value(forKey: "outputImage") as? CIImage {
+            let frame = result.extent
+            let resultImage = context.createCGImage(result, from: frame)
+            let newImage = UIImage(cgImage: resultImage!)
+            pictureView.image = newImage
+         }
+      }
+   }
+}

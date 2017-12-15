@@ -1,0 +1,7 @@
+@IBAction func changePicture(_ sender: UIButton) {
+   if pictureView.isAnimating {
+      pictureView.stopAnimating()
+   } else {
+      pictureView.startAnimating()
+   }
+}

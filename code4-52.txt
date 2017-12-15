@@ -1,0 +1,6 @@
+import UIKit
+
+let container = UIView(frame: CGRect(x: 0, y: 0, width: 375, height: 667))
+
+var color = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
+container.backgroundColor = color

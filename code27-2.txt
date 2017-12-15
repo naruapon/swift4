@@ -1,0 +1,16 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBAction func openWeb(_ sender: UIButton) {
+      let web = "http://www.formasterminds.com"
+      let dataURL = web.data(using: String.Encoding.utf8, allowLossyConversion: false)
+      let webURL = URL(dataRepresentation: dataURL!, relativeTo: nil, isAbsolute: true)
+        
+      let app = UIApplication.shared
+      app.open(webURL!, options: [:], completionHandler: { (success) in
+         if success {
+            print("Successful")
+         }
+      })
+   }
+}

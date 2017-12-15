@@ -1,0 +1,9 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var counterLabel: UILabel!
+    
+   @IBAction func increment(_ sender: UIStepper) {
+      counterLabel.text = String(sender.value)
+   }
+}

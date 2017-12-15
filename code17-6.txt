@@ -1,0 +1,22 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var sheetButton: UIButton!
+    
+   @IBAction func openSheet(_ sender: UIButton) {
+      let alert = UIAlertController(title: "Emails", message: "What do you want to do with the message?", preferredStyle: .actionSheet)
+        
+      if let popover = alert.popoverPresentationController {
+         popover.sourceView = sheetButton
+         popover.sourceRect = sheetButton.bounds
+         popover.permittedArrowDirections = [.up]
+      }
+      let action1 = UIAlertAction(title: "Move to Inbox", style: .default, handler: nil)
+      alert.addAction(action1)
+      let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+      alert.addAction(cancel)
+      let action2 = UIAlertAction(title: "Delete", style: .destructive, handler: nil)
+      alert.addAction(action2)
+      present(alert, animated: true, completion: nil)
+   }
+}

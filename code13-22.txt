@@ -1,0 +1,8 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBAction func goToPicture(_ sender: UIButton) {
+      AppData.selectedPicture = sender.tag
+      performSegue(withIdentifier: "showPicture", sender: self)
+   }
+}

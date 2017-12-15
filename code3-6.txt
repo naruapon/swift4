@@ -1,0 +1,9 @@
+func sumup(list: [Int]) -> Int {
+   var total = 0
+   for number in list {
+      total = total + number
+   }
+   return total
+}
+var numbers = [1, 2, 3, 4, 5]
+var message = "The result is: \(sumup(list: numbers))" //"The result is: 15"

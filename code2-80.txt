@@ -1,0 +1,6 @@
+var fruits = ["Banana", "Orange", "Apple"]
+var counter = 0
+for _ in fruits {
+   counter += 1
+}
+var message = "I have \(counter) fruits"  // "I have 3 fruits"

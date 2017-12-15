@@ -1,0 +1,3 @@
+func loadPhotos() {
+   photosList = PHAsset.fetchAssets(with: .image, options: nil)
+}

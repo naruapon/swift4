@@ -1,0 +1,10 @@
+var fruits = ["Apple", "Grape", "Banana", "Grape"]
+
+var filteredArray = fruits.filter({ (fruit: String) -> Bool in
+   if fruit != "Grape" {
+      return true
+   } else {
+      return false
+   }
+})
+filteredArray  // ["Apple", "Banana"]

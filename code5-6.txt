@@ -1,0 +1,16 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var counterLabel: UILabel!
+   @IBOutlet weak var pressHere: UIButton!
+   var counter: Int = 0
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      pressHere.addTarget(self, action: #selector(showCounter(sender:)), for: UIControlEvents.touchUpInside)
+   }
+   @objc func showCounter(sender: UIButton) {
+      counter += 1
+      counterLabel.text = "Pressed: \(counter)"
+   }
+}

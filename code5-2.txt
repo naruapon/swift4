@@ -1,0 +1,14 @@
+import UIKit
+
+class ViewController: UIViewController {
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      let app = UIApplication.shared
+      let mydelegate = app.delegate as! AppDelegate
+        
+      if let salary = mydelegate.basicSalary {
+         print("Basic Salary is \(salary)")
+      }
+   }
+}

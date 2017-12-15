@@ -1,0 +1,48 @@
+import UIKit
+import CoreLocation
+import UserNotifications
+
+class ViewController: UIViewController, CLLocationManagerDelegate {
+   @IBOutlet weak var distanceLabel: UILabel!
+   var manager: CLLocationManager!
+   var initial: CLLocation!
+   var lastDistance = 0.0
+
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      manager = CLLocationManager()
+      manager.delegate = self
+      manager.distanceFilter = kCLHeadingFilterNone
+      manager.desiredAccuracy = kCLLocationAccuracyBest
+      manager.allowsBackgroundLocationUpdates = true
+      manager.requestAlwaysAuthorization()
+      manager.startUpdatingLocation()
+   }
+   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+      if let location = locations.last {
+         if initial != nil {
+            let distance = location.distance(from: initial)
+            let last = lastDistance + 10
+            if distance > last {
+               showNotification()
+               lastDistance += 10
+            }
+            distanceLabel.text = String(format: "%.2f", distance)
+         } else {
+            initial = location
+         }
+      }
+   }
+   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+      print("Error")
+   }
+   func showNotification() {
+      let notificationcenter = UNUserNotificationCenter.current()
+      let content = UNMutableNotificationContent()
+      content.title = "Running"
+      content.body = "New Achievement!"
+      let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+      let request = UNNotificationRequest(identifier: "achievements", content: content, trigger: trigger)
+      notificationcenter.add(request, withCompletionHandler: nil)
+   }
+}

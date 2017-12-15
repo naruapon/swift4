@@ -1,0 +1,17 @@
+import UIKit
+
+class ViewController: UIViewController {
+   override func viewDidLoad() {
+      super.viewDidLoad()
+
+      let grayView = UIView(frame: CGRect.zero)
+      grayView.backgroundColor = UIColor.lightGray
+      grayView.translatesAutoresizingMaskIntoConstraints = false
+      view.addSubview(grayView)
+
+      grayView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+      grayView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
+      grayView.widthAnchor.constraint(equalToConstant: 125).isActive = true
+      grayView.heightAnchor.constraint(equalToConstant: 125).isActive = true
+   }
+}

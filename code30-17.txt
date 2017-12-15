@@ -1,0 +1,26 @@
+@IBAction func showDirections(_ sender: UIBarButtonItem) {
+   let request = MKDirectionsRequest()
+   request.source = origin
+   request.destination = destination
+   request.requestsAlternateRoutes = false
+        
+   let directions = MKDirections(request: request)
+   directions.calculate(completionHandler: { (results, error) in
+      if let routes = results?.routes {
+         let route = routes.first!
+         self.mapView.add(route.polyline, level: .aboveRoads)
+                
+         let annotation1 = MKPointAnnotation()
+         annotation1.coordinate = self.origin.placemark.coordinate
+         annotation1.title = "Apple Store"
+         self.mapView.addAnnotation(annotation1)
+                
+         let annotation2 = MKPointAnnotation()
+         annotation2.coordinate = self.destination.placemark.coordinate
+         annotation2.title = "Grand Central Terminal"
+         self.mapView.addAnnotation(annotation2)
+                
+         self.mapView.showAnnotations([annotation1, annotation2], animated: true)
+      }
+   })
+}

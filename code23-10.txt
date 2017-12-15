@@ -1,0 +1,8 @@
+override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+   return documentsList.count
+}
+override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+   let cell = tableView.dequeueReusableCell(withIdentifier: "documentCell", for: indexPath)
+   cell.textLabel?.text = documentsList[indexPath.row]
+   return cell
+}

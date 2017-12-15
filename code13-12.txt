@@ -1,0 +1,13 @@
+import UIKit
+
+class ViewController: UIViewController {
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      let item = navigationItem
+      item.title = "First View"
+      let button = UIBarButtonItem()
+      button.title = "Close"
+      item.backBarButtonItem = button
+   }
+}

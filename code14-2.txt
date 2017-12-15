@@ -1,0 +1,34 @@
+import UIKit
+
+class ViewController: UIViewController, UITableViewDataSource {
+   @IBOutlet weak var myTable: UITableView!
+   var items: [String]!
+   var descriptions: [String]!
+   var images: [String]!
+   var selected: [Bool]!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+        
+      items = ["Lettuce", "Tomatoes", "Milk", "Granola", "Donuts", "Cookies", "Butter", "Cheese", "Lemonade", "Yogurt", "Oatmeal", "Juice", "Tea", "Coffee", "Bagels", "Brownies", "Potatoes", "Onions"]
+      descriptions = ["1 lb.", "Sweet tomatoes", "2 lts.", "12 bars", "A dozen", "Oreos", "2", "Lactose free", "2 lts.", "Strawberrie yogurt", "1 box", "Orange juice", "Green tea", "1 bag of beans", "6", "Chocolate brownies", "2 lbs.", "1 lb."]
+      images = ["lettuce", "tomato", "milk", "granola", "donuts", "cookies", "butter", "cheese", "lemonade", "yogurt", "oatmeal", "juice", "tea", "coffee", "bagels", "brownies", "potato", "onions"]
+      selected = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+      myTable.dataSource = self
+   }
+   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      return items.count
+   }
+   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      let cell = myTable.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+      let row = indexPath.row
+      cell.textLabel?.text = items[row]
+      cell.detailTextLabel?.text = descriptions[row]
+      cell.imageView?.image = UIImage(named: images[row])
+        
+      if selected[row] {
+         cell.accessoryType = .checkmark
+      }
+      return cell
+   }
+}

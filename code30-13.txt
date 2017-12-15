@@ -1,0 +1,5 @@
+func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+   if mapView.userLocation.location != nil {
+      setAnnotations()
+   }
+}

@@ -1,0 +1,30 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var counterLabel: UILabel!
+   var control: MyControl!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      control = MyControl()
+      control.addObserver(self, forKeyPath: "round", options: [], context: nil)
+   }
+   @IBAction func updateValue(_ sender: UIStepper) {
+      let current = Int(sender.value)
+      if current % 10 == 0 {
+         control.setValue(true, forKey: "round")
+      } else {
+         control.setValue(false, forKey: "round")
+      }
+      counterLabel.text = String(current)
+   }
+   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+      if keyPath == "round" {
+         if control.round {
+            counterLabel.textColor = UIColor.red
+         } else {
+            counterLabel.textColor = UIColor.black
+         }
+      }
+   }
+}

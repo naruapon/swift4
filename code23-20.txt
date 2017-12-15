@@ -1,0 +1,34 @@
+import UIKit
+import UserNotifications
+import CloudKit
+import CoreData
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+   var window: UIWindow?
+   var database: CKDatabase!
+   var changeToken: CKServerChangeToken!
+   var fetchChangeToken: CKServerChangeToken!
+   var container: NSPersistentContainer!
+   var context: NSManagedObjectContext!
+
+   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+      let containerDefault = CKContainer.default()
+      database = containerDefault.privateCloudDatabase
+
+      container = NSPersistentContainer(name: "books")
+      container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+         if error == nil {
+            self.context = self.container.viewContext
+         } else {
+            print("Error")
+         }
+      })
+      checkZones()
+      checkSubscriptions()
+      checkUpdates()
+      application.registerForRemoteNotifications()
+
+      return true
+   }
+}

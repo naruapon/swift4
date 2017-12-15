@@ -1,0 +1,6 @@
+var mynumber = 5
+func myfunction() {
+   mynumber = mynumber * 2
+}
+myfunction()
+mynumber  // 10

@@ -1,0 +1,13 @@
+override func viewWillAppear(_ animated: Bool) {
+   super.viewWillAppear(animated)
+
+   let request: NSFetchRequest<Books> = Books.fetchRequest()
+   let sort = NSSortDescriptor(key: "title", ascending: true, selector: #selector(NSString.caseInsensitiveCompare(_:)))
+   request.sortDescriptors = [sort]
+   do {
+      listOfBooks = try context.fetch(request)
+   } catch {
+      print("Error")
+   }
+   tableView.reloadData()
+}

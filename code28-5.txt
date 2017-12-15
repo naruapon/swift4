@@ -1,0 +1,25 @@
+override func viewDidLoad() {
+   super.viewDidLoad()
+        
+   if contactID != nil {
+      let store = CNContactStore()
+      do {
+         contact = try store.unifiedContact(withIdentifier: contactID, keysToFetch: [CNContactGivenNameKey as CNKeyDescriptor, CNContactFamilyNameKey as CNKeyDescriptor, CNContactPostalAddressesKey as CNKeyDescriptor, CNContactNoteKey as CNKeyDescriptor])
+         self.nameLabel.text = "\(contact.givenName) \(contact.familyName)"
+                
+         var address: CNPostalAddress!
+         for item in contact.postalAddresses {
+            if item.label == CNLabelHome {
+               address = item.value
+            }
+         }
+         if address != nil {
+            self.addressLabel.text = "\(address.street), \(address.state)"
+         } else {
+            self.addressLabel.text = "Unknown"
+         }
+      } catch {
+         print("Error")
+      }
+   }
+}

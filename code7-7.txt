@@ -1,0 +1,24 @@
+import UIKit
+
+class ViewController: UIViewController, UITextFieldDelegate {
+   @IBOutlet weak var titleLabel: UILabel!
+   @IBOutlet weak var titleInput: UITextField!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      titleInput.delegate = self
+   }
+   @IBAction func changeTitle(_ sender: UIButton) {
+      assignTitle()
+   }
+   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      assignTitle()
+      return true
+   }
+   func assignTitle() {
+      if titleInput.text != "" {
+         titleLabel.text = titleInput.text
+         titleInput.text = ""
+      }
+   }
+}

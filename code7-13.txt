@@ -1,0 +1,16 @@
+import UIKit
+
+class ViewController: UIViewController {
+   @IBOutlet weak var titleLabel: UILabel!
+   @IBOutlet weak var titleInput: UITextField!
+
+   @IBAction func changeTitle(_ sender: UIButton) {
+      if titleInput.text != "" {
+         titleLabel.text = titleInput.text
+         titleInput.text = ""
+         titleInput.resignFirstResponder()
+      } else {
+         titleInput.becomeFirstResponder()
+      }
+   }
+}

@@ -1,0 +1,35 @@
+import UIKit
+import MapKit
+
+class ViewController: UIViewController, MKMapViewDelegate {
+   @IBOutlet weak var mapView: MKMapView!
+
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      let location = CLLocation(latitude: 40.7637825011971, longitude: -73.9731328627541)
+      let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 2000, 2000)
+      mapView.setRegion(region, animated: false)
+
+      let annotation = MyAnnotation(coordinate: location.coordinate)
+      annotation.title = "Apple Store"
+      annotation.subtitle = "Think Different"
+      mapView.addAnnotation(annotation)
+
+      mapView.delegate = self
+   }
+   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+      if let temp = annotation as? MyAnnotation {
+         var aView = mapView.dequeueReusableAnnotationView(withIdentifier: "Pins") as? MKMarkerAnnotationView
+         if aView == nil {
+            aView = MKMarkerAnnotationView(annotation: temp, reuseIdentifier: "Pins")
+            aView?.glyphText = "Place"
+            aView?.markerTintColor = UIColor.blue
+            aView?.titleVisibility = .hidden
+         } else {
+            aView?.annotation = annotation
+         }
+         return aView
+      }
+      return nil
+   }
+}

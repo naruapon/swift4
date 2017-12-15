@@ -1,0 +1,35 @@
+func insertCity(name: String) {
+   let text = name.trimmingCharacters(in: .whitespaces)
+   if text != "" {
+      let containerDefault = CKContainer.default()
+      let database = containerDefault.privateCloudDatabase
+            
+      let id = CKRecordID(recordName: "id-\(text)")
+      let reference = CKReference(recordID: selectedCountry, action: CKReferenceAction.deleteSelf)
+            
+      let record = CKRecord(recordType: "Cities", recordID: id)
+      record.setObject(text as NSString, forKey: "name")
+      record.setObject(reference, forKey: "country")
+            
+      let bundle = Bundle.main
+      let fileURL = bundle.url(forResource: "Toronto", withExtension: "jpg")
+      let asset = CKAsset(fileURL: fileURL!)
+      record.setObject(asset, forKey: "picture")
+
+      database.save(record, completionHandler: { (recordSaved, error) in
+         if error != nil {
+            print("Error: record not saved")
+         }
+      })
+      listCities.append((text, id))
+      tableView.reloadData()
+   }
+}
+override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+   if segue.identifier == "showPicture" {
+      if let indexPath = self.tableView.indexPathForSelectedRow {
+         let controller = segue.destination as! PicturesViewController
+         controller.selectedCity = listCities[indexPath.row].1
+      }
+   }
+}

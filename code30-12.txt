@@ -1,0 +1,45 @@
+import UIKit
+import MapKit
+
+class ViewController: UIViewController, MKMapViewDelegate {
+   @IBOutlet weak var mapView: MKMapView!
+   var manager: CLLocationManager!
+    
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      manager = CLLocationManager()
+      manager.requestWhenInUseAuthorization()
+        
+      mapView.showsUserLocation = true
+      mapView.userLocation.title = "You are here"
+      mapView.delegate = self
+   }
+   @IBAction func showLocations(_ sender: UIBarButtonItem) {
+      let location = mapView.userLocation
+      let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 2000, 2000)
+      mapView.setRegion(region, animated: true)
+        
+      setAnnotations()
+   }
+   func setAnnotations() {
+      let request = MKLocalSearchRequest()
+      request.naturalLanguageQuery = "Pizza"
+      request.region = mapView.region
+        
+      let search = MKLocalSearch(request: request)
+      search.start(completionHandler: { (results, error) in
+         if let items = results?.mapItems {
+            self.mapView.removeAnnotations(self.mapView.annotations)
+            for item in items {
+               if let coordinates = item.placemark.location?.coordinate {
+                  let annotation = MKPointAnnotation()
+                  annotation.coordinate = coordinates
+                  annotation.title = item.name
+                  annotation.subtitle = item.phoneNumber
+                  self.mapView.addAnnotation(annotation)
+               }
+            }
+         }
+      })
+   }
+}

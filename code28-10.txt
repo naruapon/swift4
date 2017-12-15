@@ -1,0 +1,47 @@
+import UIKit
+import Contacts
+import ContactsUI
+
+class ContactsViewController: UITableViewController, CNContactViewControllerDelegate {
+   var contactList: [CNContact]!
+
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+        
+      let store = CNContactStore()
+      store.requestAccess(for: .contacts, completionHandler: { (success, error) in
+         if success {
+            let keys = CNContactViewController.descriptorForRequiredKeys()
+            let request = CNContactFetchRequest(keysToFetch: [keys])
+            do {
+               self.contactList = []
+               try store.enumerateContacts(with: request, usingBlock: { (contact, status) in
+                  self.contactList.append(contact)
+               })
+            } catch {
+               print("Error")
+            }
+            OperationQueue.main.addOperation({
+               self.tableView.reloadData()
+            })
+         }
+      })
+   }
+   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      if contactList != nil {
+         return contactList.count
+      }
+      return 0
+   }
+   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      let cell = tableView.dequeueReusableCell(withIdentifier: "contactCell", for: indexPath)
+      let contact = contactList[indexPath.row]
+      cell.textLabel?.text = "\(contact.givenName) \(contact.familyName)"
+      return cell
+   }
+   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      let contact = contactList[indexPath.row]
+      let controller = CNContactViewController(for: contact)
+      navigationController?.pushViewController(controller, animated: true)
+   }
+}
