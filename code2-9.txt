@@ -1,2 +1,6 @@
 var mynumber = 5
-var myfavorite = mynumber
+var myfavorite = mynumber 
+
+//การกำหนดค่าตัวแปรโดยไม่ระบุชนิดข้อมูล 
+//การกำหนดค่าตัวแปรจากตัวแปรอื่นที่เก็บค่า
+//myfavorite มีชนิดข้อมูลเป็นตัวเลขจำนวนเต็ม (Int) เช่นกัน 
