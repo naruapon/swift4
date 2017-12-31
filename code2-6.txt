@@ -1,2 +1,4 @@
 var mynumber: Int = 5
 mynumber = 87
+
+//การใช้งานตัวแปร
