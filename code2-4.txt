@@ -1,3 +1,5 @@
 var mynumber: Int
 mynumber = 5
 mynumber  // 5
+
+//การใช้งานตัวแปร
