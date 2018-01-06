@@ -5,3 +5,23 @@ import UIKit
 var str = "Hello, playground"
 
 // ประกาศตัวแปรและกำหนดค่า
+// ประกาศตัวแปรแบบไม่กำหนดชนิดข้อมูล
+// Implicitly
+
+/*
+Implicitly: It means you do not need to type cast any variable. It will automatically get required data type.
+
+For example,
+
+let a = 10 // That means you Implicitly initialized object with Int data type.
+
+let a = 10.0 // That means you Implicitly initialized object with Double data type.
+
+Explicitly: When you initialized variable with define data type. That method is called explicit.
+
+For example,
+
+let a : Int = 10 // That means you explicitly initialised object with Int data type.
+
+let a : Double = 10.0 // That means you explicitly initialised object with Double data type.
+*/
